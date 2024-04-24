@@ -1,0 +1,22 @@
+{
+    "name": "renfordt/colors",
+    "description": "A php library to convert and modify colors.",
+    "type": "library",
+    "require": {
+        "php": "^8.2",
+        "renfordt/clamp": "^1.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Renfordt\\Colors\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jannik Renfordt",
+            "email": "jannik.renfordt@ikobb.de"
+        }
+    ],
+    "minimum-stability": "stable"
+}
