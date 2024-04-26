@@ -18,38 +18,6 @@ class RGBColor
         return $rgbColor;
     }
 
-
-    /**
-     * Calculate the components Chroma, Value, and Hue based on RGB color.
-     *
-     * @return array An array containing the calculated values (maxRGB, minRGB, chroma, value, hue).
-     */
-    public function calculateCVH(): array
-    {
-        $normalizedRed = $this->red / 255;
-        $normalizedGreen = $this->green / 255;
-        $normalizedBlue = $this->blue / 255;
-
-        $maxRGB = max($normalizedRed, $normalizedGreen, $normalizedBlue);
-        $minRGB = min($normalizedRed, $normalizedGreen, $normalizedBlue);
-        $chroma = $maxRGB - $minRGB;
-        $value = $maxRGB; // also called brightness
-        if ($chroma == 0) {
-            $hue = 0;
-        } elseif ($maxRGB == $normalizedRed) {
-            $hue = 60 * (($normalizedGreen - $normalizedBlue) / $chroma);
-        } elseif ($maxRGB == $normalizedGreen) {
-            $hue = 60 * (2 + ($normalizedBlue - $normalizedRed) / $chroma);
-        } else {
-            $hue = 60 * (4 + ($normalizedRed - $normalizedGreen) / $chroma);
-        }
-
-        if ($hue < 0) {
-            $hue += 360;
-        }
-        return array($maxRGB, $minRGB, $chroma, $value, $hue);
-    }
-
     /**
      * Set the RGB color components.
      *
@@ -84,6 +52,37 @@ class RGBColor
 
 
         return array(round($hue), round($saturation, 2), round($lightness, 2));
+    }
+
+    /**
+     * Calculate the components Chroma, Value, and Hue based on RGB color.
+     *
+     * @return array An array containing the calculated values (maxRGB, minRGB, chroma, value, hue).
+     */
+    public function calculateCVH(): array
+    {
+        $normalizedRed = $this->red / 255;
+        $normalizedGreen = $this->green / 255;
+        $normalizedBlue = $this->blue / 255;
+
+        $maxRGB = max($normalizedRed, $normalizedGreen, $normalizedBlue);
+        $minRGB = min($normalizedRed, $normalizedGreen, $normalizedBlue);
+        $chroma = $maxRGB - $minRGB;
+        $value = $maxRGB; // also called brightness
+        if ($chroma == 0) {
+            $hue = 0;
+        } elseif ($maxRGB == $normalizedRed) {
+            $hue = 60 * (($normalizedGreen - $normalizedBlue) / $chroma);
+        } elseif ($maxRGB == $normalizedGreen) {
+            $hue = 60 * (2 + ($normalizedBlue - $normalizedRed) / $chroma);
+        } else {
+            $hue = 60 * (4 + ($normalizedRed - $normalizedGreen) / $chroma);
+        }
+
+        if ($hue < 0) {
+            $hue += 360;
+        }
+        return array($maxRGB, $minRGB, $chroma, $value, $hue);
     }
 
     /**
