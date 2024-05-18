@@ -30,9 +30,9 @@ class HexColorTest extends TestCase
         return [
             'white' => ['#ffffff', [0, 0.0, 1.0]],
             'black' => ['#000000', [0, 0.0, 0.0]],
-            'Mountain Meadow' => ['#11c380', [157, 0.84, 0.42]],
-            'Sienna' => ['#8c5a45', [18, 0.34, 0.41]],
-            'Dark Slate Grey' => ['#345', [210, 0.25, 0.27]],
+            'Mountain Meadow' => ['#11c380', [157, 0.8396, 0.4157]],
+            'Sienna' => ['#8c5a45', [18, 0.3397, 0.4098]],
+            'Dark Slate Grey' => ['#345', [210, 0.25, 0.2667]],
             'fuchsia' => ['ff00ff', [300, 1.0, 0.5]],
         ];
     }
@@ -42,9 +42,9 @@ class HexColorTest extends TestCase
         return [
             'white' => ['#ffffff', [0, 0.0, 1.0]],
             'black' => ['#000000', [0, 0.0, 0.0]],
-            'Mountain Meadow' => ['#11c380', [157, 0.91, 0.76]],
-            'Sienna' => ['#8c5a45', [18, 0.51, 0.55]],
-            'Dark Slate Grey' => ['#345', [210, 0.40, 0.33]],
+            'Mountain Meadow' => ['#11c380', [157, 0.9128, 0.7647]],
+            'Sienna' => ['#8c5a45', [18, 0.5071, 0.549]],
+            'Dark Slate Grey' => ['#345', [210, 0.40, 0.3333]],
             'fuchsia' => ['ff00ff', [300, 1.0, 1.0]],
         ];
     }
