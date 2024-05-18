@@ -122,7 +122,7 @@ class HSLColor
      * @return RGBColor An array containing the RGB color values (red, green, blue).
      * @throws Exception If RGB calculation is not possible.
      */
-    private function toRGB(): RGBColor
+    public function toRGB(): RGBColor
     {
         $chroma = (1 - abs(2 * $this->lightness - 1)) * $this->saturation;
         $hueNormalized = $this->hue / 60;
