@@ -8,14 +8,18 @@ class HexColor
 {
     private string $hexStr;
 
-    private static function isValidHex(string $hexString)
+    /**
+     * Creates a new instance of the HexColor class with the specified hexadecimal string.
+     *
+     * @param  string  $hexStr  The hexadecimal string representing the color. It must be a valid hexadecimal color code without the '#'.
+     *
+     * @return HexColor The newly created instance of the HexColor class with the specified hexadecimal string.
+     */
+    public static function make(string $hexStr): HexColor
     {
-        if (strlen($hexString) !== 3
-            && strlen($hexString) !== 6
-            || preg_match("/^[0-9a-fA-F]+$/", $hexString) !== 1) {
-            return false;
-        }
-        return true;
+        $hexColor = new HexColor();
+        $hexColor->setHexStr($hexStr);
+        return $hexColor;
     }
 
     /**
@@ -73,5 +77,15 @@ class HexColor
             throw new InvalidArgumentException('The format of the hex is invalid.');
         }
         $this->hexStr = $hexStr;
+    }
+
+    private static function isValidHex(string $hexString)
+    {
+        if (strlen($hexString) !== 3
+            && strlen($hexString) !== 6
+            || preg_match("/^[0-9a-fA-F]+$/", $hexString) !== 1) {
+            return false;
+        }
+        return true;
     }
 }
