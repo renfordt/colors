@@ -8,38 +8,6 @@ use Renfordt\Colors\RGBColor;
 
 class RGBColorTest extends TestCase
 {
-    /**
-     * Test the make method of the RGBColor class.
-     * @dataProvider makeProvider
-     */
-    public function testMake(): void
-    {
-        // Testing out-of-bounds color values
-        $result = RGBColor::make([300, 300, 300]);
-        $this->assertNotEmpty($result->toHex());
-        $this->assertEquals('ffffff', $result->toHex());
-
-        // Testing RGB maximum value
-        $result = RGBColor::make([255, 255, 255]);
-        $this->assertNotEmpty($result->toHex());
-        $this->assertEquals('ffffff', $result->toHex());
-
-        // Testing RGB minimum value
-        $result = RGBColor::make([0, 0, 0]);
-        $this->assertNotEmpty($result->toHex());
-        $this->assertEquals('000000', $result->toHex());
-
-        // Testing valid RGB color values
-        $result = RGBColor::make([120, 255, 64]);
-        $this->assertNotEmpty($result->toHex());
-        $this->assertEquals('78ff40', $result->toHex());
-
-        // Testing negative color values to be clamped to zero
-        $result = RGBColor::make([-20, -20, -20]);
-        $this->assertNotEmpty($result->toHex());
-        $this->assertEquals('000000', $result->toHex());
-    }
-
     public static function makeProvider(): array
     {
         return [
@@ -64,5 +32,38 @@ class RGBColorTest extends TestCase
                 '4cabc8'
             ],
         ];
+    }
+
+    public static function toHexProvider(): array
+    {
+        return [
+            'black' => [[255, 255, 255], '#ffffff'],
+            'white' => [[0, 0, 0], '#000000'],
+            'Mountain Meadow' => [[17, 195, 128], '#11c380'],
+            'Sienna' => [[140, 90, 69], '#8c5a45'],
+            'Dark Slate Grey' => [[51, 68, 85], '#345']
+        ];
+    }
+
+    /**
+     * Test the make method of the RGBColor class.
+     * @dataProvider makeProvider
+     */
+    public function testMake($rgb, $expected): void
+    {
+        $result = RGBColor::make($rgb);
+        $this->assertNotEmpty($result->toHex());
+        $this->assertEquals($expected, $result->toHex());
+    }
+
+    /**
+     * Test the toHex method of the RGBColor class.
+     * @dataProvider toHexProvider
+     */
+    public function testToHex($rgb, $expected): void
+    {
+        $result = RGBColor::make($rgb);
+        $this->assertIsString($result->toHex());
+        $this->assertSame($expected, $result->toHex());
     }
 }
