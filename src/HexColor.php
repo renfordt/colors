@@ -71,6 +71,28 @@ class HexColor
     }
 
     /**
+     * Convert the color to HSL representation.
+     *
+     * @param  int  $precision  The number of decimal places to round the result values to (default: 4).
+     * @return HSLColor The HSL representation of the color.
+     */
+    public function toHSL(int $precision = 4): HSLColor
+    {
+        return $this->toRGB()->toHSL($precision);
+    }
+
+    /**
+     * Convert the color to HSV representation.
+     *
+     * @param  int  $precision  The number of decimal places to round the result values to (default: 4).
+     * @return HSVColor The HSV representation of the color.
+     */
+    public function toHSV(int $precision = 4): HSVColor
+    {
+        return $this->toRGB()->toHSV($precision);
+    }
+
+    /**
      * Creates a new instance of the HexColor class with the specified hexadecimal string.
      *
      * @param  string  $hexStr  The hexadecimal string representing the color. It must be a valid hexadecimal color code without the '#'.
