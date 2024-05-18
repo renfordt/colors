@@ -24,8 +24,6 @@ class HSVColor
      */
     public function toRGB(): RGBColor
     {
-        $this->validateParameters();
-
         $chroma = $this->value * $this->saturation;
         $hueNormalized = $this->hue / 60;
         $hMod2 = $hueNormalized - 2 * floor($hueNormalized / 2);
@@ -99,14 +97,5 @@ class HSVColor
     public function setValue(float $value): void
     {
         $this->value = clamp($value, 0.0, 1.0);
-    }
-
-    private function validateParameters(): void
-    {
-        if ($this->hue < 0 || $this->hue > 360 ||
-            $this->saturation < 0 || $this->saturation > 1 ||
-            $this->value < 0 || $this->value > 1) {
-            throw new InvalidArgumentException('Parameters exceed their intended ranges.');
-        }
     }
 }
