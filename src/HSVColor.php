@@ -16,11 +16,25 @@ class HSVColor
     private float $value;
 
     /**
-     * Convert HSV color to RGB color space.
+     * Creates a new instance of the HSVColor class based on provided HSV values.
      *
-     * @return RGBColor An array containing the RGB color values (red, green, blue).
-     * @throws InvalidArgumentException if any of the parameters exceed their intended ranges.
-     * @throws Exception if RGB calculation is not possible.
+     * @param  array  $hsv  An array containing the hue, saturation, and value components in that order.
+     * @return HSVColor          The newly created HSVColor object.
+     */
+    public static function make(array $hsv): HSVColor
+    {
+        list($hue, $saturation, $value) = $hsv;
+        $hsvColor = new HSVColor();
+        $hsvColor->setHue($hue);
+        $hsvColor->setSaturation($saturation);
+        $hsvColor->setValue($value);
+        return $hsvColor;
+    }
+
+    /**
+     * Returns the RGB color representation of the HSV color.
+     *
+     * @return RGBColor The RGB color representation.
      */
     public function toRGB(): RGBColor
     {
