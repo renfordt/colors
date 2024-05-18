@@ -95,6 +95,16 @@ class HSLColor
     }
 
     /**
+     * Get the HSL (Hue, Saturation, Lightness) values of the color.
+     *
+     * @return array The HSL values as an array with three elements: [hue, saturation, lightness].
+     */
+    public function getHSL(): array
+    {
+        return [$this->hue, $this->saturation, $this->lightness];
+    }
+
+    /**
      * Brighten the color by a specified amount.
      *
      * @param  int  $amount  The amount to brighten the color by as a percentage (default: 10).
