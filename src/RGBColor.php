@@ -106,23 +106,20 @@ class RGBColor
     }
 
     /**
-     * Converts the RGB color values to the HSV color representation.
+     * Converts the RGB color values to the HSV (Hue, Saturation, Value) color representation.
      *
-     * @return array An array containing the HSV color values.
-     *               - Index 0: The hue value in degrees (0-360).
-     *               - Index 1: The saturation value as a percentage (0-100).
-     *               - Index 2: The value (brightness) as a percentage (0-100).
+     * @return HSVColor The HSV color representation.
      */
-    public function toHSV(): array
+    public function toHSV(): HSVColor
     {
         list($maxRGB, $minRGB, $chroma, $value, $hue) = $this->calculateCVH();
 
         if ($chroma == 0) {
-            return array(0, 0, $value);
+            return HSVColor::make([0, 0, $value]);
         }
         $saturation = $chroma / $maxRGB * 100;
 
-        return array($hue, $saturation, $value);
+        return HSVColor::make([$hue, $saturation, $value]);
     }
 
     /**
