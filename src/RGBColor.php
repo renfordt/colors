@@ -11,30 +11,6 @@ class RGBColor
     /** @var int $blue The blue component of the RGB color (0-255) */
     private int $blue;
 
-    public static function make(array $rgb): RGBColor
-    {
-        $rgbColor = new RGBColor();
-        $rgbColor->setRGB($rgb);
-        return $rgbColor;
-    }
-
-
-    /**
-     * Set the RGB color components.
-     *
-     * @param  array  $rgb  An array containing the red, green, and blue components of the RGB color.
-     *                    The red component should be at index 0, green at index 1, and blue at index 2.
-     * @return void
-     * @throws InvalidArgumentException If the $rgb array does not contain exactly 3 elements.
-     */
-    public function setRGB(array $rgb): void
-    {
-        list($red, $green, $blue) = $rgb;
-        $this->red = clamp($red, 0, 255);
-        $this->green = clamp($green, 0, 255);
-        $this->blue = clamp($blue, 0, 255);
-    }
-
     /**
      * Get the RGB components of the color.
      *
@@ -117,18 +93,44 @@ class RGBColor
     }
 
     /**
-     * Convert RGB color to hexadecimal color representation.
+     * Converts the RGB color values to a hexadecimal color representation.
      *
-     * @param  int  $red  The red component of the RGB color (0-255).
-     * @param  int  $green  The green component of the RGB color (0-255).
-     * @param  int  $blue  The blue component of the RGB color (0-255).
-     * @return string The hexadecimal representation of the RGB color.
+     * @return HexColor The hexadecimal color representation.
      */
-    public function toHex(): string
+    public function toHex(): HexColor
     {
         $hexRed = str_pad(dechex($this->red), 2, "0", STR_PAD_LEFT);
         $hexGreen = str_pad(dechex($this->green), 2, "0", STR_PAD_LEFT);
         $hexBlue = str_pad(dechex($this->blue), 2, "0", STR_PAD_LEFT);
-        return $hexRed.$hexGreen.$hexBlue;
+        return HexColor::make($hexRed.$hexGreen.$hexBlue);
+    }
+
+    /**
+     * Creates a new RGBColor object from an array of RGB color values.
+     *
+     * @param  array  $rgb  An array of RGB color values [red, green, blue].
+     * @return RGBColor The new RGBColor object.
+     */
+    public static function make(array $rgb): RGBColor
+    {
+        $rgbColor = new RGBColor();
+        $rgbColor->setRGB($rgb);
+        return $rgbColor;
+    }
+
+    /**
+     * Set the RGB color components.
+     *
+     * @param  array  $rgb  An array containing the red, green, and blue components of the RGB color.
+     *                    The red component should be at index 0, green at index 1, and blue at index 2.
+     * @return void
+     * @throws InvalidArgumentException If the $rgb array does not contain exactly 3 elements.
+     */
+    public function setRGB(array $rgb): void
+    {
+        list($red, $green, $blue) = $rgb;
+        $this->red = clamp($red, 0, 255);
+        $this->green = clamp($green, 0, 255);
+        $this->blue = clamp($blue, 0, 255);
     }
 }
