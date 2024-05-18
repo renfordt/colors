@@ -40,70 +40,9 @@ class HexColor
         return true;
     }
 
-    /**
-     * Converts the hexadecimal string representation to RGB color.
-     *
-     * @return RGBColor The RGB color representation of the hex string.
-     * @throws InvalidArgumentException if the length of hex string is not 6 or 3 characters.
-     *
-     */
-    public function toRGB(): RGBColor
+    public function __toString(): string
     {
-        $length = strlen($this->hexStr);
-
-        if ($length === 6) {
-            $colorVal = hexdec($this->hexStr);
-
-            $color = array(
-                0xFF & ($colorVal >> 0x10),
-                0xFF & ($colorVal >> 0x8),
-                0xFF & $colorVal
-            );
-        } else {
-            $color = array(
-                hexdec(str_repeat(substr($this->hexStr, 0, 1), 2)),
-                hexdec(str_repeat(substr($this->hexStr, 1, 1), 2)),
-                hexdec(str_repeat(substr($this->hexStr, 2, 1), 2))
-            );
-        }
-
-        return RGBColor::make($color);
-    }
-
-    /**
-     * Convert the color to HSL representation.
-     *
-     * @param  int  $precision  The number of decimal places to round the result values to (default: 4).
-     * @return HSLColor The HSL representation of the color.
-     */
-    public function toHSL(int $precision = 4): HSLColor
-    {
-        return $this->toRGB()->toHSL($precision);
-    }
-
-    /**
-     * Convert the color to HSV representation.
-     *
-     * @param  int  $precision  The number of decimal places to round the result values to (default: 4).
-     * @return HSVColor The HSV representation of the color.
-     */
-    public function toHSV(int $precision = 4): HSVColor
-    {
-        return $this->toRGB()->toHSV($precision);
-    }
-
-    /**
-     * Creates a new instance of the HexColor class with the specified hexadecimal string.
-     *
-     * @param  string  $hexStr  The hexadecimal string representing the color. It must be a valid hexadecimal color code without the '#'.
-     *
-     * @return HexColor The newly created instance of the HexColor class with the specified hexadecimal string.
-     */
-    public static function make(string $hexStr): HexColor
-    {
-        $hexColor = new HexColor();
-        $hexColor->setHexStr($hexStr);
-        return $hexColor;
+        return $this->getHexStr();
     }
 
     /**
@@ -135,5 +74,71 @@ class HexColor
             throw new InvalidArgumentException('The format of the hex is invalid.');
         }
         $this->hexStr = $hexStr;
+    }
+
+    /**
+     * Convert the color to HSL representation.
+     *
+     * @param  int  $precision  The number of decimal places to round the result values to (default: 4).
+     * @return HSLColor The HSL representation of the color.
+     */
+    public function toHSL(int $precision = 4): HSLColor
+    {
+        return $this->toRGB()->toHSL($precision);
+    }
+
+    /**
+     * Converts the hexadecimal string representation to RGB color.
+     *
+     * @return RGBColor The RGB color representation of the hex string.
+     * @throws InvalidArgumentException if the length of hex string is not 6 or 3 characters.
+     *
+     */
+    public function toRGB(): RGBColor
+    {
+        $length = strlen($this->hexStr);
+
+        if ($length === 6) {
+            $colorVal = hexdec($this->hexStr);
+
+            $color = array(
+                0xFF & ($colorVal >> 0x10),
+                0xFF & ($colorVal >> 0x8),
+                0xFF & $colorVal
+            );
+        } else {
+            $color = array(
+                hexdec(str_repeat(substr($this->hexStr, 0, 1), 2)),
+                hexdec(str_repeat(substr($this->hexStr, 1, 1), 2)),
+                hexdec(str_repeat(substr($this->hexStr, 2, 1), 2))
+            );
+        }
+
+        return RGBColor::make($color);
+    }
+
+    /**
+     * Creates a new instance of the HexColor class with the specified hexadecimal string.
+     *
+     * @param  string  $hexStr  The hexadecimal string representing the color. It must be a valid hexadecimal color code without the '#'.
+     *
+     * @return HexColor The newly created instance of the HexColor class with the specified hexadecimal string.
+     */
+    public static function make(string $hexStr): HexColor
+    {
+        $hexColor = new HexColor();
+        $hexColor->setHexStr($hexStr);
+        return $hexColor;
+    }
+
+    /**
+     * Convert the color to HSV representation.
+     *
+     * @param  int  $precision  The number of decimal places to round the result values to (default: 4).
+     * @return HSVColor The HSV representation of the color.
+     */
+    public function toHSV(int $precision = 4): HSVColor
+    {
+        return $this->toRGB()->toHSV($precision);
     }
 }
