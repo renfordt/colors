@@ -51,4 +51,17 @@ class HSVColorTest extends TestCase
         $this->assertInstanceOf(RGBColor::class, $rgbColor);
         $this->assertEquals($rgb, $rgbColor->getRGB());
     }
+
+    /**
+     * @covers       \Renfordt\Colors\HSVColor::toHex
+     */
+    #[DataProvider('provideHSVData')]
+    public function testToHex($hsv, $rgb, $hex): void
+    {
+        $hsvColor = HSVColor::make($hsv);
+        $hexColor = $hsvColor->toHex();
+
+        $this->assertInstanceOf(HexColor::class, $hexColor);
+        $this->assertEquals($hex, $hexColor->getHexStr(false));
+    }
 }
