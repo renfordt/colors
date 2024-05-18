@@ -112,4 +112,17 @@ class HSVColor
     {
         $this->value = clamp($value, 0.0, 1.0);
     }
+
+    /**
+     * Retrieves the HSV color components.
+     *
+     * @return array The HSV color components as an array, where:
+     *               - The first element is the hue component.
+     *               - The second element is the saturation component.
+     *               - The third element is the value component.
+     */
+    public function getHSV(): array
+    {
+        return [$this->hue, $this->saturation, $this->value];
+    }
 }
