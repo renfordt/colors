@@ -90,12 +90,12 @@ class RGBColor
     }
 
     /**
-     * Set the RGB color components.
+     * Sets the RGB color values.
      *
-     * @param  array  $rgb  An array containing the red, green, and blue components of the RGB color.
-     *                    The red component should be at index 0, green at index 1, and blue at index 2.
+     * @param  array  $rgb  An array containing the RGB color values.
+     *      The array should have three elements, representing the red, green, and blue values, respectively.
+     *      Each value should be an integer between 0 and 255.
      * @return void
-     * @throws InvalidArgumentException If the $rgb array does not contain exactly 3 elements.
      */
     public function setRGB(array $rgb): void
     {
@@ -119,7 +119,11 @@ class RGBColor
         }
         $saturation = $chroma / $maxRGB;
 
-        return HSVColor::make([$hue, $saturation, $value]);
+        return HSVColor::make([
+            round($hue),
+            round($saturation, 2),
+            round($value, 2)
+        ]);
     }
 
     /**
