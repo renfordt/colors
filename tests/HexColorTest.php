@@ -20,7 +20,32 @@ class HexColorTest extends TestCase
             'black' => ['#000000', [0, 0, 0]],
             'Mountain Meadow' => ['#11c380', [17, 195, 128]],
             'Sienna' => ['#8c5a45', [140, 90, 69]],
-            'Dark Slate Grey' => ['#345', [51, 68, 85]]
+            'Dark Slate Grey' => ['#345', [51, 68, 85]],
+            'fuchsia' => ['#ff00ff', [255, 0, 255]],
+        ];
+    }
+
+    public static function hexToHSLProvider(): array
+    {
+        return [
+            'white' => ['#ffffff', [0, 0.0, 1.0]],
+            'black' => ['#000000', [0, 0.0, 0.0]],
+            'Mountain Meadow' => ['#11c380', [157, 0.84, 0.42]],
+            'Sienna' => ['#8c5a45', [18, 0.34, 0.41]],
+            'Dark Slate Grey' => ['#345', [210, 0.25, 0.27]],
+            'fuchsia' => ['ff00ff', [300, 1.0, 0.5]],
+        ];
+    }
+
+    public static function hexToHSVProvider(): array
+    {
+        return [
+            'white' => ['#ffffff', [0, 0.0, 1.0]],
+            'black' => ['#000000', [0, 0.0, 0.0]],
+            'Mountain Meadow' => ['#11c380', [157, 0.91, 0.76]],
+            'Sienna' => ['#8c5a45', [18, 0.51, 0.55]],
+            'Dark Slate Grey' => ['#345', [210, 0.40, 0.33]],
+            'fuchsia' => ['ff00ff', [300, 1.0, 1.0]],
         ];
     }
 
@@ -125,5 +150,19 @@ class HexColorTest extends TestCase
         $this->expectExceptionMessage('The format of the hex is invalid.');
         $color->setHexStr('abcd');
         $color->toRGB();
+    }
+
+    #[DataProvider('hexToHSLProvider')]
+    public function test_toHSL($hex, $expected): void
+    {
+        $color = HexColor::make($hex);
+        $this->assertSame($expected, $color->toHSL()->getHSL());
+    }
+
+    #[DataProvider('hexToHSVProvider')]
+    public function test_toHSV($hex, $expected): void
+    {
+        $color = HexColor::make($hex);
+        $this->assertSame($expected, $color->toHSV()->getHSV());
     }
 }
