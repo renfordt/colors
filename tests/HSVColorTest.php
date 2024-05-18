@@ -2,6 +2,7 @@
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Renfordt\Colors\HexColor;
 use Renfordt\Colors\HSVColor;
 use Renfordt\Colors\RGBColor;
 
