@@ -108,4 +108,17 @@ class HSLColorTest extends TestCase
         $hslColor->darken(70);
         $this->assertEquals(0.0, $hslColor->getLightness());
     }
+    /**
+     * @covers       \Renfordt\Colors\HSLColor::getHSL
+     */
+    #[DataProvider('provideHSLData')]
+    public function testGetHSL($hsl, $rgb, $hex): void
+    {
+        list($hue, $saturation, $lightness) = $hsl;
+        $hslColor = HSLColor::make($hsl);
+        $result = $hslColor->getHSL();
+        $this->assertIsArray($result);
+        $this->assertCount(3, $result);
+        $this->assertEquals($result, [$hue, $saturation, $lightness]);
+    }
 }
