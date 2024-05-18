@@ -24,9 +24,10 @@ class RGBColor
     /**
      * Converts the RGB color values to a HSL (Hue, Saturation, Lightness) color representation.
      *
+     * @param  int  $precision  The decimal precision for the saturation and lightness values. Default: 4.
      * @return HSLColor The HSL color representation.
      */
-    public function toHSL(int $precision = 2): HSLColor
+    public function toHSL(int $precision = 4): HSLColor
     {
         list($maxRGB, $minRGB, $chroma, $value, $hue) = $this->calculateCVH();
 
@@ -106,11 +107,12 @@ class RGBColor
     }
 
     /**
-     * Converts the RGB color values to the HSV (Hue, Saturation, Value) color representation.
+     * Converts the RGB color values to a HSV (Hue, Saturation, Value) color representation.
      *
+     * @param  int  $precision  (optional) The precision used for rounding the saturation and value values. Default: 4
      * @return HSVColor The HSV color representation.
      */
-    public function toHSV(int $precision = 2): HSVColor
+    public function toHSV(int $precision = 4): HSVColor
     {
         list($maxRGB, $minRGB, $chroma, $value, $hue) = $this->calculateCVH();
 
