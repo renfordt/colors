@@ -117,7 +117,7 @@ class RGBColor
         if ($chroma == 0) {
             return HSVColor::make([0, 0, $value]);
         }
-        $saturation = $chroma / $maxRGB * 100;
+        $saturation = $chroma / $maxRGB;
 
         return HSVColor::make([$hue, $saturation, $value]);
     }
