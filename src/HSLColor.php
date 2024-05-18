@@ -147,4 +147,14 @@ class HSLColor
 
         return self::finalizeRGBCalculation($red, $green, $blue, $this->lightness, $chroma, true);
     }
+
+    /**
+     * Converts the current color object to hexadecimal representation.
+     *
+     * @return HexColor The hexadecimal representation of the current color.
+     */
+    public function toHex(): HexColor
+    {
+        return $this->toRGB()->toHex();
+    }
 }
