@@ -121,4 +121,17 @@ class HSLColorTest extends TestCase
         $this->assertCount(3, $result);
         $this->assertEquals($result, [$hue, $saturation, $lightness]);
     }
+
+    /**
+     * @covers       \Renfordt\Colors\HSLColor::toHex
+     */
+    #[DataProvider('provideHSLData')]
+    public function testToHex($hsl, $rgb, $expectedHex): void
+    {
+        $hslColor = HSLColor::make($hsl);
+        $hexColor = $hslColor->toHex();
+
+        $this->assertInstanceOf(HexColor::class, $hexColor);
+        $this->assertEquals($expectedHex, $hexColor->getHexStr(false));
+    }
 }
