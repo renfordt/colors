@@ -35,6 +35,18 @@ class RGBColorTest extends TestCase
         ];
     }
 
+    public static function toHSLProvider(): array
+    {
+        return [
+            'white' => [[255, 255, 255], [0, 0, 1.0]],
+            'black' => [[0, 0, 0], [0, 0.0, 0.0]],
+            'Mountain Meadow' => [[17, 195, 128], [157, 0.84, 0.42]],
+            'Sienna' => [[140, 90, 69], [18, 0.34, 0.41]],
+            'Dark Slate Grey' => [[51, 68, 85], [210, 0.25, 0.27]],
+            'fuchsia' => [[255, 0, 255], [300, 1, 0.5]],
+        ];
+    }
+
     public static function toHexProvider(): array
     {
         return [
@@ -81,5 +93,17 @@ class RGBColorTest extends TestCase
         $result = RGBColor::make($rgb);
         $this->assertIsString($result->toHex()->getHexStr(false));
         $this->assertSame($expected, $result->toHex()->getHexStr(false));
+    }
+
+    /**
+     * Test the toHSL method of the RGBColor class.
+     * @covers \Renfordt\Colors\RGBColor::toHSL
+     */
+    #[DataProvider('toHSLProvider')]
+    public function testToHSL($rgb, $expected): void
+    {
+        $result = RGBColor::make($rgb);
+        $this->assertIsArray($result->toHSL());
+        $this->assertEquals($expected, $result->toHSL());
     }
 }
