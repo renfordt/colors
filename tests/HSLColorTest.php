@@ -3,6 +3,7 @@
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Renfordt\Colors\HSLColor;
+use Renfordt\Colors\RGBColor;
 
 class HSLColorTest extends TestCase
 {
@@ -13,7 +14,8 @@ class HSLColorTest extends TestCase
             'black' => [[0, 0, 0], [0, 0, 0], '000000'],
             'Mountain Meadow' => [[157, 0.84, 0.42], [17, 195, 128], '11c380'],
             'Sienna' => [[18, 0.34, 0.41], [140, 90, 69], '8c5a45'],
-            'Dark Slate Grey' => [[210, 0.25, 0.27], [51, 68, 85], '334455']
+            'Dark Slate Grey' => [[210, 0.25, 0.27], [51, 68, 85], '334455'],
+            'fuchsia' => [[300, 1, 0.5], [255, 0, 255], 'ff00ff'],
         ];
     }
 
@@ -59,5 +61,51 @@ class HSLColorTest extends TestCase
         $this->assertEquals($hslColor->getHue(), $hue);
         $this->assertEquals($hslColor->getSaturation(), $saturation);
         $this->assertEquals($hslColor->getLightness(), $lightness);
+    }
+
+    /**
+     * @covers       \Renfordt\Colors\HSLColor::toRGB
+     */
+    #[DataProvider('provideHSLData')]
+    public function testToRGB($hsl, $expectedRgb, $hex): void
+    {
+        list($hue, $saturation, $lightness) = $hsl;
+        $hslColor = HSLColor::make($hsl);
+        $rgbColor = $hslColor->toRGB();
+
+        $this->assertInstanceOf(RGBColor::class, $rgbColor);
+        $this->assertEquals($rgbColor->getRGB(), $expectedRgb);
+    }
+
+    /**
+     * @covers       \Renfordt\Colors\HSLColor::brighten
+     */
+    #[DataProvider('provideHSLData')]
+    public function testBrighten(array $hsl): void
+    {
+        list($hue, $saturation, $lightness) = $hsl;
+        $hslColor = HSLColor::make($hsl);
+
+        $hslColor->brighten(30);
+        $this->assertEquals($hslColor->getLightness(), min(($lightness + 0.30), 1.0));
+
+        $hslColor->brighten(70);
+        $this->assertEquals($hslColor->getLightness(), min(($lightness + 0.70), 1.0));
+    }
+
+    /**
+     * @covers       \Renfordt\Colors\HSLColor::darken
+     */
+    #[DataProvider('provideHSLData')]
+    public function testDarken(array $hsl): void
+    {
+        list($hue, $saturation, $lightness) = $hsl;
+        $hslColor = HSLColor::make($hsl);
+
+        $hslColor->darken(30);
+        $this->assertEquals($hslColor->getLightness(), max(($lightness - 0.30), 0.0));
+
+        $hslColor->darken(70);
+        $this->assertEquals($hslColor->getLightness(), max(($lightness - 0.70), 0.0));
     }
 }
