@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 use Renfordt\Colors\RGBColor;
@@ -47,8 +48,8 @@ class RGBColorTest extends TestCase
 
     /**
      * Test the make method of the RGBColor class.
-     * @dataProvider makeProvider
      */
+    #[DataProvider('makeProvider')]
     public function testMake($rgb, $expected): void
     {
         $result = RGBColor::make($rgb);
@@ -58,8 +59,8 @@ class RGBColorTest extends TestCase
 
     /**
      * Test the toHex method of the RGBColor class.
-     * @dataProvider toHexProvider
      */
+    #[DataProvider('toHexProvider')]
     public function testToHex($rgb, $expected): void
     {
         $result = RGBColor::make($rgb);
