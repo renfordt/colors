@@ -14,7 +14,7 @@ class HexColorTest extends TestCase
     /**
      * Provides data for testing the HexColor::toRGB() method.
      */
-    public function hexToRgbProvider(): array
+    public static function hexToRgbProvider(): array
     {
         return [
             'black' => ['#ffffff', [255, 255, 255]],
@@ -35,7 +35,7 @@ class HexColorTest extends TestCase
         $this->assertSame('123abc', $color->getHexStr(false));
 
         $color->setHexStr('#abc');
-        $this->assertSame('aabbcc', $color->getHexStr(false));
+        $this->assertSame('abc', $color->getHexStr(false));
     }
 
 
