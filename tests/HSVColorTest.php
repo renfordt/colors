@@ -17,9 +17,9 @@ class HSVColorTest extends TestCase
         return [
             'white' => [[0, 0, 1], [255, 255, 255], 'ffffff'],
             'black' => [[0, 0, 0], [0, 0, 0], '000000'],
-            'Mountain Meadow' => [[157, 0.91, 0.76], [17, 197, 128], '11c380'],
+            'Mountain Meadow' => [[157, 0.91, 0.76], [17, 194, 126], '11c380'],
             'Sienna' => [[18, 0.51, 0.55], [140, 90, 69], '8c5a45'],
-            'Dark Slate Grey' => [[210, 0.40, 0.33], [52, 69, 86], '334455'],
+            'Dark Slate Grey' => [[210, 0.40, 0.33], [50, 67, 84], '334455'],
             'fuchsia' => [[300, 1.0, 1.0], [255, 0, 255], 'ff00ff'],
         ];
     }
@@ -34,9 +34,9 @@ class HSVColorTest extends TestCase
         $hsvColor = HSVColor::make($hsv);
 
         $this->assertInstanceOf(HSVColor::class, $hsvColor);
-        $this->assertEquals($hsvColor->getHue(), $hue);
-        $this->assertEquals($hsvColor->getSaturation(), $saturation);
-        $this->assertEquals($hsvColor->getValue(), $value);
+        $this->assertEquals($hue, $hsvColor->getHue());
+        $this->assertEquals($saturation, $hsvColor->getSaturation());
+        $this->assertEquals($value, $hsvColor->getValue());
     }
 
     /**
@@ -49,6 +49,6 @@ class HSVColorTest extends TestCase
         $rgbColor = $hsvColor->toRGB();
 
         $this->assertInstanceOf(RGBColor::class, $rgbColor);
-        $this->assertEquals($rgbColor->getRGB(), $rgb);
+        $this->assertEquals($rgb, $rgbColor->getRGB());
     }
 }
