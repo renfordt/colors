@@ -64,7 +64,7 @@ class RGBColorTest extends TestCase
     public function testToHex($rgb, $expected): void
     {
         $result = RGBColor::make($rgb);
-        $this->assertIsString($result->toHex());
-        $this->assertSame($expected, $result->toHex());
+        $this->assertIsString($result->toHex()->getHexStr());
+        $this->assertSame($expected, $result->toHex()->getHexStr());
     }
 }
