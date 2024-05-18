@@ -108,7 +108,7 @@ class HexColor
      */
     public function setHexStr(string $hexStr): void
     {
-        $hexStr = HexColor::removeHash($this->hexStr);
+        $hexStr = HexColor::removeHash($hexStr);
         if (!self::isValidHex($hexStr)) {
             throw new InvalidArgumentException('The format of the hex is invalid.');
         }
