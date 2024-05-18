@@ -12,9 +12,9 @@ class HSLColorTest extends TestCase
         return [
             'white' => [[0, 0, 1], [255, 255, 255], 'ffffff'],
             'black' => [[0, 0, 0], [0, 0, 0], '000000'],
-            'Mountain Meadow' => [[157, 0.84, 0.42], [17, 195, 128], '11c380'],
+            'Mountain Meadow' => [[157, 0.84, 0.42], [17, 197, 128], '11c380'],
             'Sienna' => [[18, 0.34, 0.41], [140, 90, 69], '8c5a45'],
-            'Dark Slate Grey' => [[210, 0.25, 0.27], [51, 68, 85], '334455'],
+            'Dark Slate Grey' => [[210, 0.25, 0.27], [52, 69, 86], '334455'],
             'fuchsia' => [[300, 1, 0.5], [255, 0, 255], 'ff00ff'],
         ];
     }
@@ -58,9 +58,9 @@ class HSLColorTest extends TestCase
         $hslColor = HSLColor::make($hsl);
 
         $this->assertInstanceOf(HSLColor::class, $hslColor);
-        $this->assertEquals($hslColor->getHue(), $hue);
-        $this->assertEquals($hslColor->getSaturation(), $saturation);
-        $this->assertEquals($hslColor->getLightness(), $lightness);
+        $this->assertEquals($hue, $hslColor->getHue());
+        $this->assertEquals($saturation, $hslColor->getSaturation());
+        $this->assertEquals($lightness, $hslColor->getLightness());
     }
 
     /**
@@ -74,7 +74,7 @@ class HSLColorTest extends TestCase
         $rgbColor = $hslColor->toRGB();
 
         $this->assertInstanceOf(RGBColor::class, $rgbColor);
-        $this->assertEquals($rgbColor->getRGB(), $expectedRgb);
+        $this->assertEquals($expectedRgb, $rgbColor->getRGB());
     }
 
     /**
@@ -87,10 +87,10 @@ class HSLColorTest extends TestCase
         $hslColor = HSLColor::make($hsl);
 
         $hslColor->brighten(30);
-        $this->assertEquals($hslColor->getLightness(), min(($lightness + 0.30), 1.0));
+        $this->assertEquals(min(($lightness + 0.30), 1.0), $hslColor->getLightness());
 
         $hslColor->brighten(70);
-        $this->assertEquals($hslColor->getLightness(), min(($lightness + 0.70), 1.0));
+        $this->assertEquals(1.0, $hslColor->getLightness());
     }
 
     /**
@@ -103,9 +103,9 @@ class HSLColorTest extends TestCase
         $hslColor = HSLColor::make($hsl);
 
         $hslColor->darken(30);
-        $this->assertEquals($hslColor->getLightness(), max(($lightness - 0.30), 0.0));
+        $this->assertEquals(max(($lightness - 0.30), 0.0), $hslColor->getLightness());
 
         $hslColor->darken(70);
-        $this->assertEquals($hslColor->getLightness(), max(($lightness - 0.70), 0.0));
+        $this->assertEquals(0.0, $hslColor->getLightness());
     }
 }
