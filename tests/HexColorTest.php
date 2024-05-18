@@ -37,6 +37,51 @@ class HexColorTest extends TestCase
         $this->assertSame('abc', $color->getHexStr(false));
     }
 
+    /**
+     * @covers \Renfordt\Colors\HexColor::make
+     */
+    public function testMake(): void
+    {
+        $color = HexColor::make('123abc');
+        $this->assertInstanceOf(HexColor::class, $color);
+        $this->assertSame('123abc', $color->getHexStr(false));
+    }
+
+    public function testMakeWithInvalidHex(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The format of the hex is invalid.');
+        HexColor::make('ghijk');
+    }
+
+    public function testMakeWithInvalidHexLength(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The format of the hex is invalid.');
+        HexColor::make('abcd');
+    }
+
+    public function testMakeWithEmptyString(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The format of the hex is invalid.');
+        HexColor::make('');
+    }
+
+    public function testMakeWithWhiteSpaceString(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The format of the hex is invalid.');
+        HexColor::make(' ');
+    }
+
+    public function testMakeWithHashedHex(): void
+    {
+        $color = HexColor::make('#123abc');
+        $this->assertInstanceOf(HexColor::class, $color);
+        $this->assertSame('123abc', $color->getHexStr(false));
+    }
+
 
     /**
      * @covers       \Renfordt\Colors\HexColor::toRGB
