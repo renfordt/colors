@@ -103,7 +103,7 @@ class RGBColorTest extends TestCase
     public function testToHSL($rgb, $expected): void
     {
         $result = RGBColor::make($rgb);
-        $this->assertIsArray($result->toHSL());
-        $this->assertEquals($expected, $result->toHSL());
+        $this->assertIsArray($result->toHSL()->getHSL());
+        $this->assertEquals($expected, $result->toHSL()->getHSL());
     }
 }
