@@ -5,6 +5,7 @@ declare(strict_types=1);
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+use Renfordt\Colors\HSVColor;
 use Renfordt\Colors\RGBColor;
 
 class RGBColorTest extends TestCase
@@ -38,12 +39,24 @@ class RGBColorTest extends TestCase
     public static function toHSLProvider(): array
     {
         return [
-            'white' => [[255, 255, 255], [0, 0, 1.0]],
+            'white' => [[255, 255, 255], [0, 0.0, 1.0]],
             'black' => [[0, 0, 0], [0, 0.0, 0.0]],
             'Mountain Meadow' => [[17, 195, 128], [157, 0.84, 0.42]],
             'Sienna' => [[140, 90, 69], [18, 0.34, 0.41]],
             'Dark Slate Grey' => [[51, 68, 85], [210, 0.25, 0.27]],
-            'fuchsia' => [[255, 0, 255], [300, 1, 0.5]],
+            'fuchsia' => [[255, 0, 255], [300, 1.0, 0.5]],
+        ];
+    }
+
+    public static function toHSVProvider(): array
+    {
+        return [
+            'white' => [[255, 255, 255], [0, 0, 1.0]],
+            'black' => [[0, 0, 0], [0, 0.0, 0.0]],
+            'Mountain Meadow' => [[17, 195, 128], [157, 0.91, 0.76]],
+            'Sienna' => [[140, 90, 69], [18, 0.51, 0.55]],
+            'Dark Slate Grey' => [[51, 68, 85], [210, 0.40, 0.33]],
+            'fuchsia' => [[255, 0, 255], [300, 1.0, 1.0]],
         ];
     }
 
@@ -105,5 +118,16 @@ class RGBColorTest extends TestCase
         $result = RGBColor::make($rgb);
         $this->assertIsArray($result->toHSL()->getHSL());
         $this->assertEquals($expected, $result->toHSL()->getHSL());
+    }
+    /**
+     * Test the toHSV method of the RGBColor class.
+     * @covers \Renfordt\Colors\RGBColor::toHSV
+    */
+    #[DataProvider('toHSVProvider')]
+    public function testToHSV($rgb, $expected): void
+    {
+        $result = RGBColor::make($rgb);
+        $this->assertInstanceOf(HSVColor::class, $result->toHSV());
+        $this->assertEquals($expected, $result->toHSV()->getHSV());
     }
 }
