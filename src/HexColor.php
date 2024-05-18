@@ -51,10 +51,6 @@ class HexColor
     {
         $length = strlen($this->hexStr);
 
-        if ($length != 6 || $length != 3) {
-            throw new InvalidArgumentException("Hex Str length must be 6 or 3 characters");
-        }
-
         if ($length === 6) {
             $colorVal = hexdec($this->hexStr);
 
