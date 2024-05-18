@@ -16,11 +16,11 @@ class HexColorTest extends TestCase
     public static function hexToRgbProvider(): array
     {
         return [
-            'black' => ['#ffffff', RGBColor::make([255, 255, 255])],
-            'white' => ['#000000', RGBColor::make([0, 0, 0])],
-            'Mountain Meadow' => ['#11c380', RGBColor::make([17, 195, 128])],
-            'Sienna' => ['#8c5a45', RGBColor::make([140, 90, 69])],
-            'Dark Slate Grey' => ['#345', RGBColor::make([51, 68, 85])]
+            'black' => ['#ffffff', [255, 255, 255]],
+            'white' => ['#000000', [0, 0, 0]],
+            'Mountain Meadow' => ['#11c380', [17, 195, 128]],
+            'Sienna' => ['#8c5a45', [140, 90, 69]],
+            'Dark Slate Grey' => ['#345', [51, 68, 85]]
         ];
     }
 
@@ -46,7 +46,7 @@ class HexColorTest extends TestCase
     {
         $color = new HexColor();
         $color->setHexStr($hex);
-        $this->assertSame($expected, $color->toRGB());
+        $this->assertSame($expected, $color->toRGB()->getRGB());
 
     }
 
