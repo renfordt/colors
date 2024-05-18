@@ -48,6 +48,8 @@ class RGBColorTest extends TestCase
 
     /**
      * Test the make method of the RGBColor class.
+     * Also, tests getRGB method of the RGBColor class.
+     * @covers \Renfordt\Colors\RGBColor::make
      */
     #[DataProvider('makeProvider')]
     public function testMake($rgb, $expected): void
@@ -58,7 +60,20 @@ class RGBColorTest extends TestCase
     }
 
     /**
+     * Tests the getRGB method of the RGBColor class.
+     * @covers \Renfordt\Colors\RGBColor::getRGB
+     */
+    #[DataProvider('toHexProvider')]
+    public function testGetRGB($rgb, $expected): void
+    {
+        $result = RGBColor::make($rgb);
+        $this->assertNotEmpty($result->getRGB());
+        $this->assertEquals($rgb, $result->getRGB());
+    }
+
+    /**
      * Test the toHex method of the RGBColor class.
+     * @covers \Renfordt\Colors\RGBColor::toHex
      */
     #[DataProvider('toHexProvider')]
     public function testToHex($rgb, $expected): void
