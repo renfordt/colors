@@ -22,16 +22,16 @@ class RGBColor
     }
 
     /**
-     * Convert RGB color to HSL color space.
+     * Converts the RGB color values to a HSL (Hue, Saturation, Lightness) color representation.
      *
-     * @return array An array containing the HSL color values (hue, saturation, lightness).
+     * @return HSLColor The HSL color representation.
      */
     public function toHSL(): HSLColor
     {
         list($maxRGB, $minRGB, $chroma, $value, $hue) = $this->calculateCVH();
 
         if ($chroma == 0) {
-            return array(0, 0, $value);
+            return HSLColor::make([0, 0, $value]);
         }
 
         $lightness = ($maxRGB + $minRGB) / 2;
