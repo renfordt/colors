@@ -16,21 +16,22 @@ trait HueBasedTrait
      */
     private static function calculateRGBRange(float $hueNormalized, float $chroma, float $secondMax): array
     {
-        if (0 <= $hueNormalized && $hueNormalized < 1) {
-            return [$chroma, $secondMax, 0];
-        } elseif (1 <= $hueNormalized && $hueNormalized < 2) {
-            return [$secondMax, $chroma, 0];
-        } elseif (2 <= $hueNormalized && $hueNormalized < 3) {
-            return [0, $chroma, $secondMax];
-        } elseif (3 <= $hueNormalized && $hueNormalized < 4) {
-            return [0, $secondMax, $chroma];
-        } elseif (4 <= $hueNormalized && $hueNormalized < 5) {
-            return [$secondMax, 0, $chroma];
-        } elseif (5 <= $hueNormalized && $hueNormalized < 6) {
-            return [$chroma, 0, $secondMax];
-        } else {
-            return [];
+        $rgbMap = [
+            [[$chroma, $secondMax, 0], 1],
+            [[$secondMax, $chroma, 0], 2],
+            [[0, $chroma, $secondMax], 3],
+            [[0, $secondMax, $chroma], 4],
+            [[$secondMax, 0, $chroma], 5],
+            [[$chroma, 0, $secondMax], 6],
+        ];
+
+        foreach ($rgbMap as $rgb) {
+            if ($hueNormalized < $rgb[1]) {
+                return $rgb[0];
+            }
         }
+
+        return [];
     }
 
     /**
@@ -52,10 +53,16 @@ trait HueBasedTrait
         float $chroma,
         bool $isLightness = false
     ): RGBColor {
-        $m = $isLightness ? $value - $chroma / 2 : $value - $chroma;
+        $adjustmentValue = $isLightness ? $value - $chroma / 2 : $value - $chroma;
 
-        $rgb = array_map(fn($color) => intval(round(($color + $m) * 255)), [$red, $green, $blue]);
+        $red = self::adjustColorComponent($red, $adjustmentValue);
+        $green = self::adjustColorComponent($green, $adjustmentValue);
+        $blue = self::adjustColorComponent($blue, $adjustmentValue);
 
-        return RGBColor::make($rgb);
+        return RGBColor::make([$red, $green, $blue]);
+    }
+
+    private static function adjustColorComponent(float $color, float $adjustmentValue): int {
+        return intval(round(($color + $adjustmentValue) * 255));
     }
 }
