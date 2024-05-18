@@ -26,7 +26,7 @@ class RGBColor
      *
      * @return HSLColor The HSL color representation.
      */
-    public function toHSL(): HSLColor
+    public function toHSL(int $precision = 2): HSLColor
     {
         list($maxRGB, $minRGB, $chroma, $value, $hue) = $this->calculateCVH();
 
@@ -40,8 +40,8 @@ class RGBColor
 
         return HSLColor::make([
             round($hue),
-            round($saturation, 2),
-            round($lightness, 2)
+            round($saturation, $precision),
+            round($lightness, $precision)
         ]);
     }
 
@@ -110,7 +110,7 @@ class RGBColor
      *
      * @return HSVColor The HSV color representation.
      */
-    public function toHSV(): HSVColor
+    public function toHSV(int $precision = 2): HSVColor
     {
         list($maxRGB, $minRGB, $chroma, $value, $hue) = $this->calculateCVH();
 
@@ -121,8 +121,8 @@ class RGBColor
 
         return HSVColor::make([
             round($hue),
-            round($saturation, 2),
-            round($value, 2)
+            round($saturation, $precision),
+            round($value, $precision),
         ]);
     }
 
