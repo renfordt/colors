@@ -16,8 +16,8 @@ class HexColorTest extends TestCase
     public static function hexToRgbProvider(): array
     {
         return [
-            'black' => ['#ffffff', [255, 255, 255]],
-            'white' => ['#000000', [0, 0, 0]],
+            'white' => ['#ffffff', [255, 255, 255]],
+            'black' => ['#000000', [0, 0, 0]],
             'Mountain Meadow' => ['#11c380', [17, 195, 128]],
             'Sienna' => ['#8c5a45', [140, 90, 69]],
             'Dark Slate Grey' => ['#345', [51, 68, 85]]
