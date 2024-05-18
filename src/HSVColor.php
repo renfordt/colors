@@ -49,6 +49,20 @@ class HSVColor
     }
 
     /**
+     * Converts the color to its hexadecimal representation.
+     *
+     * This method converts the color to its hexadecimal representation by first converting it to the
+     * RGB color model and then converting the RGB color to hexadecimal. The returned hexadecimal
+     * color value is an instance of the HexColor class.
+     *
+     * @return HexColor The hexadecimal representation of the color.
+     */
+    public function toHex(): HexColor
+    {
+        return $this->toRGB()->toHex();
+    }
+
+    /**
      * Returns the hue value of the color.
      *
      * @return int The hue value of the color.
