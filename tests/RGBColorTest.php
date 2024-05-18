@@ -55,8 +55,8 @@ class RGBColorTest extends TestCase
     public function testMake($rgb, $expected): void
     {
         $result = RGBColor::make($rgb);
-        $this->assertNotEmpty($result->toHex());
-        $this->assertEquals($expected, $result->toHex());
+        $this->assertNotEmpty($result->toHex()->getHexStr(false));
+        $this->assertEquals($expected, $result->toHex()->getHexStr(false));
     }
 
     /**
@@ -79,7 +79,7 @@ class RGBColorTest extends TestCase
     public function testToHex($rgb, $expected): void
     {
         $result = RGBColor::make($rgb);
-        $this->assertIsString($result->toHex()->getHexStr());
-        $this->assertSame($expected, $result->toHex()->getHexStr());
+        $this->assertIsString($result->toHex()->getHexStr(false));
+        $this->assertSame($expected, $result->toHex()->getHexStr(false));
     }
 }
