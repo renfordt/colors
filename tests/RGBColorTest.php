@@ -38,8 +38,8 @@ class RGBColorTest extends TestCase
     public static function toHexProvider(): array
     {
         return [
-            'black' => [[255, 255, 255], 'ffffff'],
-            'white' => [[0, 0, 0], '000000'],
+            'white' => [[255, 255, 255], 'ffffff'],
+            'black' => [[0, 0, 0], '000000'],
             'Mountain Meadow' => [[17, 195, 128], '11c380'],
             'Sienna' => [[140, 90, 69], '8c5a45'],
             'Dark Slate Grey' => [[51, 68, 85], '334455']
