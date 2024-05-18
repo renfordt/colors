@@ -26,7 +26,7 @@ class RGBColor
      *
      * @return array An array containing the HSL color values (hue, saturation, lightness).
      */
-    public function toHSL(): array
+    public function toHSL(): HSLColor
     {
         list($maxRGB, $minRGB, $chroma, $value, $hue) = $this->calculateCVH();
 
@@ -38,7 +38,11 @@ class RGBColor
         $saturation = $chroma / (1 - abs(2 * $value - $chroma - 1));
 
 
-        return array(round($hue), round($saturation, 2), round($lightness, 2));
+        return HSLColor::make([
+            round($hue),
+            round($saturation, 2),
+            round($lightness, 2)
+        ]);
     }
 
     /**
@@ -73,39 +77,6 @@ class RGBColor
     }
 
     /**
-     * Convert RGB color to HSV color space.
-     *
-     * @param  int  $red  The red component of the RGB color (0-255).
-     * @param  int  $green  The green component of the RGB color (0-255).
-     * @param  int  $blue  The blue component of the RGB color (0-255).
-     * @return array An array containing the HSV color values (hue, saturation, value).
-     */
-    public function toHSV(): array
-    {
-        list($maxRGB, $minRGB, $chroma, $value, $hue) = $this->calculateCVH();
-
-        if ($chroma == 0) {
-            return array(0, 0, $value);
-        }
-        $saturation = $chroma / $maxRGB * 100;
-
-        return array($hue, $saturation, $value);
-    }
-
-    /**
-     * Converts the RGB color values to a hexadecimal color representation.
-     *
-     * @return HexColor The hexadecimal color representation.
-     */
-    public function toHex(): HexColor
-    {
-        $hexRed = str_pad(dechex($this->red), 2, "0", STR_PAD_LEFT);
-        $hexGreen = str_pad(dechex($this->green), 2, "0", STR_PAD_LEFT);
-        $hexBlue = str_pad(dechex($this->blue), 2, "0", STR_PAD_LEFT);
-        return HexColor::make($hexRed.$hexGreen.$hexBlue);
-    }
-
-    /**
      * Creates a new RGBColor object from an array of RGB color values.
      *
      * @param  array  $rgb  An array of RGB color values [red, green, blue].
@@ -132,5 +103,38 @@ class RGBColor
         $this->red = clamp($red, 0, 255);
         $this->green = clamp($green, 0, 255);
         $this->blue = clamp($blue, 0, 255);
+    }
+
+    /**
+     * Converts the RGB color values to the HSV color representation.
+     *
+     * @return array An array containing the HSV color values.
+     *               - Index 0: The hue value in degrees (0-360).
+     *               - Index 1: The saturation value as a percentage (0-100).
+     *               - Index 2: The value (brightness) as a percentage (0-100).
+     */
+    public function toHSV(): array
+    {
+        list($maxRGB, $minRGB, $chroma, $value, $hue) = $this->calculateCVH();
+
+        if ($chroma == 0) {
+            return array(0, 0, $value);
+        }
+        $saturation = $chroma / $maxRGB * 100;
+
+        return array($hue, $saturation, $value);
+    }
+
+    /**
+     * Converts the RGB color values to a hexadecimal color representation.
+     *
+     * @return HexColor The hexadecimal color representation.
+     */
+    public function toHex(): HexColor
+    {
+        $hexRed = str_pad(dechex($this->red), 2, "0", STR_PAD_LEFT);
+        $hexGreen = str_pad(dechex($this->green), 2, "0", STR_PAD_LEFT);
+        $hexBlue = str_pad(dechex($this->blue), 2, "0", STR_PAD_LEFT);
+        return HexColor::make($hexRed.$hexGreen.$hexBlue);
     }
 }
