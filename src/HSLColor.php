@@ -16,6 +16,22 @@ class HSLColor
     private float $lightness;
 
     /**
+     * Create a new HSLColor instance from an array of HSL values.
+     *
+     * @param  array  $hsl  An array containing the HSL values [hue, saturation, lightness].
+     * @return HSLColor  The newly created HSLColor instance.
+     */
+    public static function make(array $hsl): HSLColor
+    {
+        list($hue, $saturation, $lightness) = $hsl;
+        $hslColor = new HSLColor();
+        $hslColor->setHue($hue);
+        $hslColor->setSaturation($saturation);
+        $hslColor->setLightness($lightness);
+        return $hslColor;
+    }
+
+    /**
      * Get the hue value of the color.
      *
      * @return int The hue value of the color.
