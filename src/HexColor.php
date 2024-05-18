@@ -6,6 +6,9 @@ use InvalidArgumentException;
 
 class HexColor
 {
+    /**
+     * @var string $hexStr The hexadecimal string representation
+     */
     private string $hexStr;
 
     /**
@@ -23,29 +26,37 @@ class HexColor
     }
 
     /**
-     * Converts a hexadecimal color code to RGB color
-     * @return array|int[] Array of red, green, and blue values [0..255]
-     * @throws InvalidArgumentException if the provided hex code is invalid
+     * Converts the hexadecimal string representation to RGB color.
+     *
+     * @return RGBColor The RGB color representation of the hex string.
+     * @throws InvalidArgumentException if the length of hex string is not 6 or 3 characters.
+     *
      */
-    public function toRGB(): array
+    public function toRGB(): RGBColor
     {
         $length = strlen($this->hexStr);
+
+        if ($length != 6 || $length != 3) {
+            throw new InvalidArgumentException("Hex Str length must be 6 or 3 characters");
+        }
 
         if ($length === 6) {
             $colorVal = hexdec($this->hexStr);
 
-            return array(
+            $color = array(
                 0xFF & ($colorVal >> 0x10),
                 0xFF & ($colorVal >> 0x8),
                 0xFF & $colorVal
             );
         }
 
-        return array(
+        $color = array(
             hexdec(str_repeat(substr($this->hexStr, 0, 1), 2)),
             hexdec(str_repeat(substr($this->hexStr, 1, 1), 2)),
             hexdec(str_repeat(substr($this->hexStr, 2, 1), 2))
         );
+
+        return RGBColor::make($color);
     }
 
     /**
