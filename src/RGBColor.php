@@ -18,6 +18,7 @@ class RGBColor
         return $rgbColor;
     }
 
+
     /**
      * Set the RGB color components.
      *
@@ -32,6 +33,16 @@ class RGBColor
         $this->red = clamp($red, 0, 255);
         $this->green = clamp($green, 0, 255);
         $this->blue = clamp($blue, 0, 255);
+    }
+
+    /**
+     * Get the RGB components of the color.
+     *
+     * @return array An array containing the red, green, and blue components of the color.
+     */
+    public function getRGB(): array
+    {
+        return array($this->red, $this->green, $this->blue);
     }
 
     /**
@@ -59,7 +70,7 @@ class RGBColor
      *
      * @return array An array containing the calculated values (maxRGB, minRGB, chroma, value, hue).
      */
-    public function calculateCVH(): array
+    private function calculateCVH(): array
     {
         $normalizedRed = $this->red / 255;
         $normalizedGreen = $this->green / 255;
