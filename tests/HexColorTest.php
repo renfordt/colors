@@ -79,7 +79,7 @@ class HexColorTest extends TestCase
     {
         $color = new HexColor();
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Hex Str length must be 6 or 3 characters.');
+        $this->expectExceptionMessage('The format of the hex is invalid.');
         $color->setHexStr('abcd');
         $color->toRGB();
     }
