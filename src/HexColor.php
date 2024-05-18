@@ -59,13 +59,13 @@ class HexColor
                 0xFF & ($colorVal >> 0x8),
                 0xFF & $colorVal
             );
+        } else {
+            $color = array(
+                hexdec(str_repeat(substr($this->hexStr, 0, 1), 2)),
+                hexdec(str_repeat(substr($this->hexStr, 1, 1), 2)),
+                hexdec(str_repeat(substr($this->hexStr, 2, 1), 2))
+            );
         }
-
-        $color = array(
-            hexdec(str_repeat(substr($this->hexStr, 0, 1), 2)),
-            hexdec(str_repeat(substr($this->hexStr, 1, 1), 2)),
-            hexdec(str_repeat(substr($this->hexStr, 2, 1), 2))
-        );
 
         return RGBColor::make($color);
     }
