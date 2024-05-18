@@ -1,10 +1,8 @@
 <?php
 
-namespace Renfordt\Colors\Tests;
-
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Renfordt\Colors\HexColor;
-use InvalidArgumentException;
 use Renfordt\Colors\RGBColor;
 
 /**
@@ -42,8 +40,8 @@ class HexColorTest extends TestCase
 
     /**
      * @covers       \Renfordt\Colors\HexColor::toRGB
-     * @dataProvider hexToRgbProvider
      */
+    #[DataProvider('hexToRgbProvider')]
     public function test_toRGB($hex, $expected): void
     {
         $color = new HexColor();
