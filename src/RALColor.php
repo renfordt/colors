@@ -241,7 +241,6 @@ class RALColor
      */
     public function toHex(): HexColor
     {
-        dump($this->lookup_table[$this->RALStr]);
         return HexColor::make($this->lookup_table[$this->RALStr]);
     }
 
