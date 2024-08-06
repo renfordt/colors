@@ -292,9 +292,9 @@ class RALColor
      * Finds the closest color in a lookup table to a target color.
      *
      * @param  HexColor  $target  The target hex color.
-     * @return HexColor|null The closest hex color in the lookup table to the target color, or null if the lookup table is empty.
+     * @return RALColor|null The closest hex color in the lookup table to the target color, or null if the lookup table is empty.
      */
-    public function findClosestColor(HexColor $target): ?HexColor
+    public function findClosestColor(HexColor $target): ?RALColor
     {
         $minDist = INF;
         $closestColor = null;
@@ -303,7 +303,7 @@ class RALColor
             $dist = $this->getColorDistance($target, $color);
             if ($dist < $minDist) {
                 $minDist = $dist;
-                $closestColor = HexColor::make($key);
+                $closestColor = RALColor::make($key);
             }
         }
 
