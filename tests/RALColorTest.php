@@ -77,4 +77,17 @@ class RALColorTest extends TestCase
             [HexColor::make('#FFFFFF'), '#EEEEEE']
         ];
     }
+    /**
+     * Add test for the setRAL method in the RALColor class.
+     *
+     * This test is validing the RAL string for the RALColor instance.
+     */
+    public function testSetRAL_Valid_RALStr(): void
+    {
+        $RALColor = new RALColor();
+        $RALColor->setRAL('1000');
+        $expected = '#C5BB8A';
+        $actual = $RALColor->toHex()->getHexStr();
+        $this->assertEquals($expected, $actual);
+    }
 }
