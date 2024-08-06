@@ -70,11 +70,11 @@ class RALColorTest extends TestCase
     public static function findClosestColorValues(): array
     {
         return [
-            [HexColor::make('#333333'), '#25282A'],
-            [HexColor::make('#666666'), '#767779'],
-            [HexColor::make('#999999'), '#818382'],
+            [HexColor::make('#333333'), '#2F3133'],
+            [HexColor::make('#666666'), '#68675F'],
+            [HexColor::make('#999999'), '#969799'],
             [HexColor::make('#CCCCCC'), '#C6CBC6'],
-            [HexColor::make('#FFFFFF'), '#EEEEEE']
+            [HexColor::make('#FFFFFF'), '#EFF0EB']
         ];
     }
     /**
