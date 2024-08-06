@@ -61,7 +61,7 @@ class RALColorTest extends TestCase
     {
         $RALColor = new RALColor();
         $actual = $RALColor->findClosestColor($hexColor);
-        $this->assertEquals($expected, $actual->getHexStr());
+        $this->assertEquals($expected, $actual->toHex());
     }
 
     /**
