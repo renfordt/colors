@@ -24,7 +24,23 @@ class RALColorTest extends TestCase
     }
 
     /**
-     * The RALStrValues method is a dataProvider for the testToHexValid_RALStr test.
+     * Tests for the toRGB method in the RALColor class.
+     *
+     * This test validates that the conversion from RALColor to
+     * RGBColor is correct for valid RALColor input.
+     *
+     * @dataProvider RALStrValues
+     */
+    public function testToRGBValid_RALStr($RALStr, $expectedHex) {
+        $RALColor = RALColor::make($RALStr);
+        $expectedRGB = HexColor::make($expectedHex)->toRGB();
+        $actualRGB = $RALColor->toRGB();
+        $this->assertEquals($expectedRGB, $actualRGB);
+    }
+
+    /**
+     * The RALStrValues method is a dataProvider for the testToHexValid_RALStr and
+     * testToRGBValid_RALStr tests.
      */
     public static function RALStrValues(): array
     {
@@ -89,5 +105,34 @@ class RALColorTest extends TestCase
         $expected = '#C5BB8A';
         $actual = $RALColor->toHex()->getHexStr();
         $this->assertEquals($expected, $actual);
+    }
+    /**
+     * Tests for the toHSL method in the RALColor class.
+     *
+     * This test validates that the conversion from RALColor to
+     * HSLColor is correct for valid RALColor input.
+     *
+     * @dataProvider RALStrValues
+     */
+    public function testToHSLValid_RALStr($RALStr, $expectedHex) {
+        $RALColor = RALColor::make($RALStr);
+        $expectedHSL = HexColor::make($expectedHex)->toHSL();
+        $actualHSL = $RALColor->toHSL();
+        $this->assertEquals($expectedHSL, $actualHSL);
+    }
+
+    /**
+     * Tests for the toHSV method in the RALColor class.
+     *
+     * This test validates that the conversion from RALColor to
+     * HSVColor is correct for valid RALColor input.
+     *
+     * @dataProvider RALStrValues
+     */
+    public function testToHSVValid_RALStr($RALStr, $expectedHex) {
+        $RALColor = RALColor::make($RALStr);
+        $expectedHSV = HexColor::make($expectedHex)->toHSV();
+        $actualHSV = $RALColor->toHSV();
+        $this->assertEquals($expectedHSV, $actualHSV);
     }
 }
