@@ -19,7 +19,7 @@ class RALColorTest extends TestCase
     public function testToHexValid_RALStr($RALStr, $expected)
     {
         $RALColor = RALColor::make($RALStr);
-        $actual = $RALColor->toHex()->getHexStr();
+        $actual = $RALColor->toHex();
         $this->assertEquals($expected, $actual);
     }
 
