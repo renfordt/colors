@@ -26,7 +26,7 @@ class RALColorTest extends TestCase
     /**
      * The RALStrValues method is a dataProvider for the testToHexValid_RALStr test.
      */
-    public function RALStrValues(): array
+    public static function RALStrValues(): array
     {
         return [
             ['1000', '#C5BB8A'],
@@ -67,7 +67,7 @@ class RALColorTest extends TestCase
     /**
      * The findClosestColorValues method is a dataProvider for the testFindClosestColor test.
      */
-    public function findClosestColorValues(): array
+    public static function findClosestColorValues(): array
     {
         return [
             [HexColor::make('#333333'), '#25282A'],
