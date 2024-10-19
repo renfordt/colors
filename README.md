@@ -1,7 +1,5 @@
 # renfordt/colors
 
-`renfordt/colors` is a PHP package that provides several classes for handling different color types, including Hex, HSL, HSV, RAL, and RGB. These color types can be easily converted into each other using this package.
-
 [![Badge](http://img.shields.io/badge/source-renfordt/colors-blue.svg)](https://github.com/renfordt/colors)
 [![Packagist Version](https://img.shields.io/packagist/v/renfordt/colors)](https://packagist.org/packages/renfordt/colors/)
 ![Packagist PHP Version](https://img.shields.io/packagist/dependency-v/renfordt/colors/php)
@@ -9,6 +7,8 @@
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/renfordt/colors/php.yml?logo=github)
 [![Code Climate coverage](https://img.shields.io/codeclimate/coverage/renfordt/colors?logo=codeclimate)](https://codeclimate.com/github/renfordt/colors/test_coverage)
 [![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/renfordt/colors?logo=codeclimate)](https://codeclimate.com/github/renfordt/colors/maintainability)
+
+`renfordt/colors` is a PHP package that provides several classes for handling different color types, including Hex, HSL, HSV, RAL, and RGB. These color types can be easily converted into each other using this package.
 
 ## Installation
 
