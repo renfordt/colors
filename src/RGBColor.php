@@ -90,6 +90,19 @@ class RGBColor
         return $rgbColor;
     }
 
+
+    /**
+     * Creates an RGBColor instance from an array of RGB values.
+     *
+     * @param  array  $rgb  An associative array containing 'red', 'green', and 'blue' keys with their respective color values.
+     * @return RGBColor The RGBColor instance created from the provided RGB values.
+     * @deprecated 1.0.1 Use ::create method
+     */
+    public static function make(array $rgb): RGBColor
+    {
+        return self::create($rgb);
+    }
+
     /**
      * Sets the RGB color values.
      *

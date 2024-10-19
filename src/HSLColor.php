@@ -32,6 +32,18 @@ class HSLColor
     }
 
     /**
+     * Creates a new HSLColor object from an array of HSL values.
+     *
+     * @param  array  $hsl  An array containing the hue, saturation, and lightness values.
+     * @return HSLColor The created HSLColor object.
+     * @deprecated 1.0.1 Use ::create method
+     */
+    public static function make(array $hsl): HSLColor
+    {
+        return self::create($hsl);
+    }
+
+    /**
      * Get the hue value of the color.
      *
      * @return int The hue value of the color.

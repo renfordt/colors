@@ -32,6 +32,21 @@ class HSVColor
     }
 
     /**
+     * Creates an instance of HSVColor from an array of HSV values.
+     *
+     * This method initializes an HSVColor object using an array of HSV (Hue, Saturation, Value) values
+     * and returns the created HSVColor instance.
+     *
+     * @param  array  $hsv  The array of HSV values used to create the HSVColor.
+     * @return HSVColor The created HSVColor instance.
+     * @deprecated 1.0.1 Use ::create method
+     */
+    public static function make(array $hsv): HSVColor
+    {
+        return self::create($hsv);
+    }
+
+    /**
      * Converts the color to its hexadecimal representation.
      *
      * This method converts the color to its hexadecimal representation by first converting it to the

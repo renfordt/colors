@@ -132,6 +132,18 @@ class HexColor
     }
 
     /**
+     * Create a new HexColor instance from a hexadecimal color string.
+     *
+     * @param  string  $hexStr  The hexadecimal color string.
+     * @return HexColor A new HexColor instance.
+     * @deprecated 1.0.1 Use ::create method
+     */
+    public static function make(string $hexStr): HexColor
+    {
+        return self::create($hexStr);
+    }
+
+    /**
      * Convert the color to HSV representation.
      *
      * @param  int  $precision  The number of decimal places to round the result values to (default: 4).

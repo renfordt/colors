@@ -258,6 +258,18 @@ class RALColor
     }
 
     /**
+     * Creates an instance of RALColor based on the provided RAL string.
+     *
+     * @param  string  $RALStr  The RAL color string.
+     * @return RALColor An instance of the RALColor.
+     * @deprecated 1.0.1 Use ::create method
+     */
+    public static function make(string $RALStr): RALColor
+    {
+        return self::create($RALStr);
+    }
+
+    /**
      * Sets the RAL string representing the color for the current instance.
      *
      * @param  string  $RALStr  The RAL string representing the color to be set.
