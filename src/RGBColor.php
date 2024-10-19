@@ -32,14 +32,14 @@ class RGBColor
         list($maxRGB, $minRGB, $chroma, $value, $hue) = $this->calculateCVH();
 
         if ($chroma == 0) {
-            return HSLColor::make([0, 0, $value]);
+            return HSLColor::create([0, 0, $value]);
         }
 
         $lightness = ($maxRGB + $minRGB) / 2;
         $saturation = $chroma / (1 - abs(2 * $value - $chroma - 1));
 
 
-        return HSLColor::make([
+        return HSLColor::create([
             round($hue),
             round($saturation, $precision),
             round($lightness, $precision)
@@ -83,7 +83,7 @@ class RGBColor
      * @param  array  $rgb  An array of RGB color values [red, green, blue].
      * @return RGBColor The new RGBColor object.
      */
-    public static function make(array $rgb): RGBColor
+    public static function create(array $rgb): RGBColor
     {
         $rgbColor = new RGBColor();
         $rgbColor->setRGB($rgb);
@@ -117,11 +117,11 @@ class RGBColor
         list($maxRGB, $minRGB, $chroma, $value, $hue) = $this->calculateCVH();
 
         if ($chroma == 0) {
-            return HSVColor::make([0, 0, $value]);
+            return HSVColor::create([0, 0, $value]);
         }
         $saturation = $chroma / $maxRGB;
 
-        return HSVColor::make([
+        return HSVColor::create([
             round($hue),
             round($saturation, $precision),
             round($value, $precision),
@@ -138,6 +138,6 @@ class RGBColor
         $hexRed = str_pad(dechex($this->red), 2, "0", STR_PAD_LEFT);
         $hexGreen = str_pad(dechex($this->green), 2, "0", STR_PAD_LEFT);
         $hexBlue = str_pad(dechex($this->blue), 2, "0", STR_PAD_LEFT);
-        return HexColor::make($hexRed.$hexGreen.$hexBlue);
+        return HexColor::create($hexRed.$hexGreen.$hexBlue);
     }
 }

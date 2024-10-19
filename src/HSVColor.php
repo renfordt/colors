@@ -21,7 +21,7 @@ class HSVColor
      * @param  array  $hsv  An array containing the hue, saturation, and value components in that order.
      * @return HSVColor          The newly created HSVColor object.
      */
-    public static function make(array $hsv): HSVColor
+    public static function create(array $hsv): HSVColor
     {
         list($hue, $saturation, $value) = $hsv;
         $hsvColor = new HSVColor();
@@ -29,6 +29,20 @@ class HSVColor
         $hsvColor->setSaturation($saturation);
         $hsvColor->setValue($value);
         return $hsvColor;
+    }
+
+    /**
+     * Converts the color to its hexadecimal representation.
+     *
+     * This method converts the color to its hexadecimal representation by first converting it to the
+     * RGB color model and then converting the RGB color to hexadecimal. The returned hexadecimal
+     * color value is an instance of the HexColor class.
+     *
+     * @return HexColor The hexadecimal representation of the color.
+     */
+    public function toHex(): HexColor
+    {
+        return $this->toRGB()->toHex();
     }
 
     /**
@@ -46,20 +60,6 @@ class HSVColor
         list($red, $green, $blue) = self::calculateRGBRange($hueNormalized, $chroma, $secondMax);
 
         return self::finalizeRGBCalculation($red, $green, $blue, $this->value, $chroma);
-    }
-
-    /**
-     * Converts the color to its hexadecimal representation.
-     *
-     * This method converts the color to its hexadecimal representation by first converting it to the
-     * RGB color model and then converting the RGB color to hexadecimal. The returned hexadecimal
-     * color value is an instance of the HexColor class.
-     *
-     * @return HexColor The hexadecimal representation of the color.
-     */
-    public function toHex(): HexColor
-    {
-        return $this->toRGB()->toHex();
     }
 
     /**

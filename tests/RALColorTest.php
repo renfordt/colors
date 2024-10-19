@@ -18,7 +18,7 @@ class RALColorTest extends TestCase
      */
     public function testToHexValid_RALStr($RALStr, $expected)
     {
-        $RALColor = RALColor::make($RALStr);
+        $RALColor = RALColor::create($RALStr);
         $actual = $RALColor->toHex();
         $this->assertEquals($expected, $actual);
     }
@@ -32,8 +32,8 @@ class RALColorTest extends TestCase
      * @dataProvider RALStrValues
      */
     public function testToRGBValid_RALStr($RALStr, $expectedHex) {
-        $RALColor = RALColor::make($RALStr);
-        $expectedRGB = HexColor::make($expectedHex)->toRGB();
+        $RALColor = RALColor::create($RALStr);
+        $expectedRGB = HexColor::create($expectedHex)->toRGB();
         $actualRGB = $RALColor->toRGB();
         $this->assertEquals($expectedRGB, $actualRGB);
     }
@@ -86,11 +86,11 @@ class RALColorTest extends TestCase
     public static function findClosestColorValues(): array
     {
         return [
-            [HexColor::make('#333333'), '#2F3133'],
-            [HexColor::make('#666666'), '#68675F'],
-            [HexColor::make('#999999'), '#969799'],
-            [HexColor::make('#CCCCCC'), '#C6CBC6'],
-            [HexColor::make('#FFFFFF'), '#EFF0EB']
+            [HexColor::create('#333333'), '#2F3133'],
+            [HexColor::create('#666666'), '#68675F'],
+            [HexColor::create('#999999'), '#969799'],
+            [HexColor::create('#CCCCCC'), '#C6CBC6'],
+            [HexColor::create('#FFFFFF'), '#EFF0EB']
         ];
     }
     /**
@@ -115,8 +115,8 @@ class RALColorTest extends TestCase
      * @dataProvider RALStrValues
      */
     public function testToHSLValid_RALStr($RALStr, $expectedHex) {
-        $RALColor = RALColor::make($RALStr);
-        $expectedHSL = HexColor::make($expectedHex)->toHSL();
+        $RALColor = RALColor::create($RALStr);
+        $expectedHSL = HexColor::create($expectedHex)->toHSL();
         $actualHSL = $RALColor->toHSL();
         $this->assertEquals($expectedHSL, $actualHSL);
     }
@@ -130,8 +130,8 @@ class RALColorTest extends TestCase
      * @dataProvider RALStrValues
      */
     public function testToHSVValid_RALStr($RALStr, $expectedHex) {
-        $RALColor = RALColor::make($RALStr);
-        $expectedHSV = HexColor::make($expectedHex)->toHSV();
+        $RALColor = RALColor::create($RALStr);
+        $expectedHSV = HexColor::create($expectedHex)->toHSV();
         $actualHSV = $RALColor->toHSV();
         $this->assertEquals($expectedHSV, $actualHSV);
     }

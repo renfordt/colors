@@ -241,7 +241,7 @@ class RALColor
      */
     public function toHex(): HexColor
     {
-        return HexColor::make($this->lookup_table[$this->RALStr]);
+        return HexColor::create($this->lookup_table[$this->RALStr]);
     }
 
     /**
@@ -250,7 +250,7 @@ class RALColor
      * @param  string  $RALStr  The RAL string representing the color.
      * @return RALColor The newly created RALColor instance.
      */
-    public static function make(string $RALStr): RALColor
+    public static function create(string $RALStr): RALColor
     {
         $RALColor = new RALColor();
         $RALColor->setRAL($RALStr);
@@ -303,7 +303,7 @@ class RALColor
             $dist = $this->getColorDistance($target, $color);
             if ($dist < $minDist) {
                 $minDist = $dist;
-                $closestColor = RALColor::make($key);
+                $closestColor = RALColor::create($key);
             }
         }
 

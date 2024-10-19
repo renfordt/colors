@@ -74,12 +74,12 @@ class RGBColorTest extends TestCase
     /**
      * Test the make method of the RGBColor class.
      * Also, tests getRGB method of the RGBColor class.
-     * @covers \Renfordt\Colors\RGBColor::make
+     * @covers \Renfordt\Colors\RGBColor::create
      */
     #[DataProvider('makeProvider')]
     public function testMake($rgb, $expected): void
     {
-        $result = RGBColor::make($rgb);
+        $result = RGBColor::create($rgb);
         $this->assertNotEmpty($result->toHex()->getHexStr(false));
         $this->assertEquals($expected, $result->toHex()->getHexStr(false));
     }
@@ -91,7 +91,7 @@ class RGBColorTest extends TestCase
     #[DataProvider('toHexProvider')]
     public function testGetRGB($rgb, $expected): void
     {
-        $result = RGBColor::make($rgb);
+        $result = RGBColor::create($rgb);
         $this->assertNotEmpty($result->getRGB());
         $this->assertEquals($rgb, $result->getRGB());
     }
@@ -103,7 +103,7 @@ class RGBColorTest extends TestCase
     #[DataProvider('toHexProvider')]
     public function testToHex($rgb, $expected): void
     {
-        $result = RGBColor::make($rgb);
+        $result = RGBColor::create($rgb);
         $this->assertIsString($result->toHex()->getHexStr(false));
         $this->assertSame($expected, $result->toHex()->getHexStr(false));
     }
@@ -115,7 +115,7 @@ class RGBColorTest extends TestCase
     #[DataProvider('toHSLProvider')]
     public function testToHSL($rgb, $expected): void
     {
-        $result = RGBColor::make($rgb);
+        $result = RGBColor::create($rgb);
         $this->assertIsArray($result->toHSL()->getHSL());
         $this->assertEquals($expected, $result->toHSL()->getHSL());
     }
@@ -126,7 +126,7 @@ class RGBColorTest extends TestCase
     #[DataProvider('toHSVProvider')]
     public function testToHSV($rgb, $expected): void
     {
-        $result = RGBColor::make($rgb);
+        $result = RGBColor::create($rgb);
         $this->assertInstanceOf(HSVColor::class, $result->toHSV());
         $this->assertEquals($expected, $result->toHSV()->getHSV());
     }

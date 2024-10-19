@@ -21,7 +21,7 @@ class HSLColor
      * @param  array  $hsl  An array containing the HSL values [hue, saturation, lightness].
      * @return HSLColor  The newly created HSLColor instance.
      */
-    public static function make(array $hsl): HSLColor
+    public static function create(array $hsl): HSLColor
     {
         list($hue, $saturation, $lightness) = $hsl;
         $hslColor = new HSLColor();
@@ -127,6 +127,16 @@ class HSLColor
     }
 
     /**
+     * Converts the current color object to hexadecimal representation.
+     *
+     * @return HexColor The hexadecimal representation of the current color.
+     */
+    public function toHex(): HexColor
+    {
+        return $this->toRGB()->toHex();
+    }
+
+    /**
      * Convert HSL color to RGB color space.
      *
      * @return RGBColor An array containing the RGB color values (red, green, blue).
@@ -146,15 +156,5 @@ class HSLColor
         }
 
         return self::finalizeRGBCalculation($red, $green, $blue, $this->lightness, $chroma, true);
-    }
-
-    /**
-     * Converts the current color object to hexadecimal representation.
-     *
-     * @return HexColor The hexadecimal representation of the current color.
-     */
-    public function toHex(): HexColor
-    {
-        return $this->toRGB()->toHex();
     }
 }

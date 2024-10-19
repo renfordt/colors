@@ -11,35 +11,6 @@ class HexColor
      */
     private string $hexStr;
 
-    /**
-     * Removes the '#' character from the hexadecimal string.
-     *
-     * @param  string  $hexStr  The hexadecimal string.
-     *
-     * @return string The hexadecimal string without the '#' character.
-     */
-    private static function removeHash(string $hexStr): string
-    {
-        return str_replace('#', '', $hexStr);
-    }
-
-    /**
-     * Checks if a given string is a valid hexadecimal color code.
-     *
-     * @param  string  $hexString  The string to check if it is a valid hexadecimal color code.
-     *
-     * @return bool Returns true if the given string is a valid hexadecimal color code, otherwise returns false.
-     */
-    private static function isValidHex(string $hexString): bool
-    {
-        if (strlen($hexString) !== 3
-            && strlen($hexString) !== 6
-            || preg_match("/^[0-9a-fA-F]+$/", $hexString) !== 1) {
-            return false;
-        }
-        return true;
-    }
-
     public function __toString(): string
     {
         return $this->getHexStr();
@@ -74,6 +45,35 @@ class HexColor
             throw new InvalidArgumentException('The format of the hex is invalid.');
         }
         $this->hexStr = $hexStr;
+    }
+
+    /**
+     * Removes the '#' character from the hexadecimal string.
+     *
+     * @param  string  $hexStr  The hexadecimal string.
+     *
+     * @return string The hexadecimal string without the '#' character.
+     */
+    private static function removeHash(string $hexStr): string
+    {
+        return str_replace('#', '', $hexStr);
+    }
+
+    /**
+     * Checks if a given string is a valid hexadecimal color code.
+     *
+     * @param  string  $hexString  The string to check if it is a valid hexadecimal color code.
+     *
+     * @return bool Returns true if the given string is a valid hexadecimal color code, otherwise returns false.
+     */
+    private static function isValidHex(string $hexString): bool
+    {
+        if (strlen($hexString) !== 3
+            && strlen($hexString) !== 6
+            || preg_match("/^[0-9a-fA-F]+$/", $hexString) !== 1) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -114,7 +114,7 @@ class HexColor
             );
         }
 
-        return RGBColor::make($color);
+        return RGBColor::create($color);
     }
 
     /**
@@ -124,7 +124,7 @@ class HexColor
      *
      * @return HexColor The newly created instance of the HexColor class with the specified hexadecimal string.
      */
-    public static function make(string $hexStr): HexColor
+    public static function create(string $hexStr): HexColor
     {
         $hexColor = new HexColor();
         $hexColor->setHexStr($hexStr);

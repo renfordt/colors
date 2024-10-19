@@ -26,13 +26,13 @@ class HSVColorTest extends TestCase
     }
 
     /**
-     * @covers       \Renfordt\Colors\HSLColor::make
+     * @covers       \Renfordt\Colors\HSLColor::create
      */
     #[DataProvider('provideHSVData')]
     public function testMake($hsv, $rgb, $hex): void
     {
         list($hue, $saturation, $value) = $hsv;
-        $hsvColor = HSVColor::make($hsv);
+        $hsvColor = HSVColor::create($hsv);
 
         $this->assertInstanceOf(HSVColor::class, $hsvColor);
         $this->assertEquals($hue, $hsvColor->getHue());
@@ -46,7 +46,7 @@ class HSVColorTest extends TestCase
     #[DataProvider('provideHSVData')]
     public function testToRGB($hsv, $rgb, $hex): void
     {
-        $hsvColor = HSVColor::make($hsv);
+        $hsvColor = HSVColor::create($hsv);
         $rgbColor = $hsvColor->toRGB();
 
         $this->assertInstanceOf(RGBColor::class, $rgbColor);
@@ -59,7 +59,7 @@ class HSVColorTest extends TestCase
     #[DataProvider('provideHSVData')]
     public function testToHex($hsv, $rgb, $hex): void
     {
-        $hsvColor = HSVColor::make($hsv);
+        $hsvColor = HSVColor::create($hsv);
         $hexColor = $hsvColor->toHex();
 
         $this->assertInstanceOf(HexColor::class, $hexColor);

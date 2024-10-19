@@ -63,11 +63,11 @@ class HexColorTest extends TestCase
     }
 
     /**
-     * @covers \Renfordt\Colors\HexColor::make
+     * @covers \Renfordt\Colors\HexColor::create
      */
     public function testMake(): void
     {
-        $color = HexColor::make('123abc');
+        $color = HexColor::create('123abc');
         $this->assertInstanceOf(HexColor::class, $color);
         $this->assertSame('123abc', $color->getHexStr(false));
     }
@@ -76,33 +76,33 @@ class HexColorTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The format of the hex is invalid.');
-        HexColor::make('ghijk');
+        HexColor::create('ghijk');
     }
 
     public function testMakeWithInvalidHexLength(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The format of the hex is invalid.');
-        HexColor::make('abcd');
+        HexColor::create('abcd');
     }
 
     public function testMakeWithEmptyString(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The format of the hex is invalid.');
-        HexColor::make('');
+        HexColor::create('');
     }
 
     public function testMakeWithWhiteSpaceString(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The format of the hex is invalid.');
-        HexColor::make(' ');
+        HexColor::create(' ');
     }
 
     public function testMakeWithHashedHex(): void
     {
-        $color = HexColor::make('#123abc');
+        $color = HexColor::create('#123abc');
         $this->assertInstanceOf(HexColor::class, $color);
         $this->assertSame('123abc', $color->getHexStr(false));
     }
@@ -155,14 +155,14 @@ class HexColorTest extends TestCase
     #[DataProvider('hexToHSLProvider')]
     public function test_toHSL($hex, $expected): void
     {
-        $color = HexColor::make($hex);
+        $color = HexColor::create($hex);
         $this->assertSame($expected, $color->toHSL()->getHSL());
     }
 
     #[DataProvider('hexToHSVProvider')]
     public function test_toHSV($hex, $expected): void
     {
-        $color = HexColor::make($hex);
+        $color = HexColor::create($hex);
         $this->assertSame($expected, $color->toHSV()->getHSV());
     }
 }
