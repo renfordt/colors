@@ -24,6 +24,18 @@ class RALColorTest extends TestCase
     }
 
     /**
+     * The testToHexValid_RALStr tests the toHex method for valid input.
+     *
+     * @dataProvider RALStrValues
+     */
+    public function testToHexValid_RALStrWithMake($RALStr, $expected)
+    {
+        $RALColor = RALColor::make($RALStr);
+        $actual = $RALColor->toHex();
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
      * Tests for the toRGB method in the RALColor class.
      *
      * This test validates that the conversion from RALColor to

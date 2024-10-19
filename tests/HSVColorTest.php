@@ -29,10 +29,22 @@ class HSVColorTest extends TestCase
      * @covers       \Renfordt\Colors\HSLColor::create
      */
     #[DataProvider('provideHSVData')]
-    public function testMake($hsv, $rgb, $hex): void
+    public function testCreate($hsv, $rgb, $hex): void
     {
         list($hue, $saturation, $value) = $hsv;
         $hsvColor = HSVColor::create($hsv);
+
+        $this->assertInstanceOf(HSVColor::class, $hsvColor);
+        $this->assertEquals($hue, $hsvColor->getHue());
+        $this->assertEquals($saturation, $hsvColor->getSaturation());
+        $this->assertEquals($value, $hsvColor->getValue());
+    }
+
+    #[DataProvider('provideHSVData')]
+    public function testMake($hsv, $rgb, $hex): void
+    {
+        list($hue, $saturation, $value) = $hsv;
+        $hsvColor = HSVColor::make($hsv);
 
         $this->assertInstanceOf(HSVColor::class, $hsvColor);
         $this->assertEquals($hue, $hsvColor->getHue());

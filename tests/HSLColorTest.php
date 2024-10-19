@@ -36,10 +36,22 @@ class HSLColorTest extends TestCase
      * @covers       \Renfordt\Colors\HSLColor::create
      */
     #[DataProvider('provideHSLData')]
-    public function testMake($hsl, $rgb, $hex): void
+    public function testCreate($hsl, $rgb, $hex): void
     {
         list($hue, $saturation, $lightness) = $hsl;
         $hslColor = HSLColor::create($hsl);
+
+        $this->assertInstanceOf(HSLColor::class, $hslColor);
+        $this->assertEquals($hslColor->getHue(), $hue);
+        $this->assertEquals($hslColor->getSaturation(), $saturation);
+        $this->assertEquals($hslColor->getLightness(), $lightness);
+    }
+
+    #[DataProvider('provideHSLData')]
+    public function testMake($hsl, $rgb, $hex): void
+    {
+        list($hue, $saturation, $lightness) = $hsl;
+        $hslColor = HSLColor::make($hsl);
 
         $this->assertInstanceOf(HSLColor::class, $hslColor);
         $this->assertEquals($hslColor->getHue(), $hue);
@@ -53,7 +65,7 @@ class HSLColorTest extends TestCase
      * @covers       \Renfordt\Colors\HSLColor::create
      */
     #[DataProvider('provideInvalidHSLData')]
-    public function testMake_with_invalid_inputs($hsl, $expected): void
+    public function testCreate_with_invalid_inputs($hsl, $expected): void
     {
         list($hue, $saturation, $lightness) = $expected;
         $hslColor = HSLColor::create($hsl);

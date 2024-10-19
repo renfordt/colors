@@ -65,14 +65,21 @@ class HexColorTest extends TestCase
     /**
      * @covers \Renfordt\Colors\HexColor::create
      */
-    public function testMake(): void
+    public function testCreate(): void
     {
         $color = HexColor::create('123abc');
         $this->assertInstanceOf(HexColor::class, $color);
         $this->assertSame('123abc', $color->getHexStr(false));
     }
 
-    public function testMakeWithInvalidHex(): void
+    public function testMake(): void
+    {
+        $color = HexColor::make('123abc');
+        $this->assertInstanceOf(HexColor::class, $color);
+        $this->assertSame('123abc', $color->getHexStr(false));
+    }
+
+    public function testCreateWithInvalidHex(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The format of the hex is invalid.');

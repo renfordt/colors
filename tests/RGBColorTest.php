@@ -77,9 +77,17 @@ class RGBColorTest extends TestCase
      * @covers \Renfordt\Colors\RGBColor::create
      */
     #[DataProvider('makeProvider')]
-    public function testMake($rgb, $expected): void
+    public function testCreate($rgb, $expected): void
     {
         $result = RGBColor::create($rgb);
+        $this->assertNotEmpty($result->toHex()->getHexStr(false));
+        $this->assertEquals($expected, $result->toHex()->getHexStr(false));
+    }
+
+    #[DataProvider('makeProvider')]
+    public function testMake($rgb, $expected): void
+    {
+        $result = RGBColor::make($rgb);
         $this->assertNotEmpty($result->toHex()->getHexStr(false));
         $this->assertEquals($expected, $result->toHex()->getHexStr(false));
     }
