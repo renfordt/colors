@@ -2,6 +2,14 @@
 
 `renfordt/colors` is a PHP package that provides several classes for handling different color types, including Hex, HSL, HSV, RAL, and RGB. These color types can be easily converted into each other using this package.
 
+[![Badge](http://img.shields.io/badge/source-renfordt/colors-blue.svg)](https://github.com/renfordt/colors)
+[![Packagist Version](https://img.shields.io/packagist/v/renfordt/colors)](https://packagist.org/packages/renfordt/colors/)
+![Packagist PHP Version](https://img.shields.io/packagist/dependency-v/renfordt/colors/php)
+![GitHub License](https://img.shields.io/github/license/renfordt/colors)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/renfordt/colors/php.yml?logo=github)
+[![Code Climate coverage](https://img.shields.io/codeclimate/coverage/renfordt/colors?logo=codeclimate)](https://codeclimate.com/github/renfordt/colors/test_coverage)
+[![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/renfordt/colors?logo=codeclimate)](https://codeclimate.com/github/renfordt/colors/maintainability)
+
 ## Installation
 
 You can install this package using Composer. Run the following command:
@@ -22,26 +30,26 @@ composer require renfordt/colors
 You can initialize colors in multiple formats using the `create` method:
 
 ```php
-use Renfordt\Colors\Hex;
-use Renfordt\Colors\HSL;
-use Renfordt\Colors\HSV;
-use Renfordt\Colors\RAL;
-use Renfordt\Colors\RGB;
+use Renfordt\Colors\HexColor;
+use Renfordt\Colors\HSLColor;
+use Renfordt\Colors\HSVColor;
+use Renfordt\Colors\RALColor;
+use Renfordt\Colors\RGBColor;
 
 // HEX Color
-$hexColor = Hex::create('#ffffff');
+$hexColor = HexColor::create('#ffffff');
 
 // HSL Color
-$hslColor = HSL::create(360, 100, 50);
+$hslColor = HSLColor::create([360, 100, 50]);
 
 // HSV Color
-$hsvColor = HSV::create(360, 100, 100);
+$hsvColor = HSVColor::create([360, 100, 100]);
 
 // RAL Color
-$ralColor = RAL::create(9010);
+$ralColor = RALColor::create('9010');
 
 // RGB Color
-$rgbColor = RGB::create(255, 255, 255);
+$rgbColor = RGBColor::create([255, 255, 255]);
 ```
 
 ### Converting Colors
