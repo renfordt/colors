@@ -62,7 +62,8 @@ trait HueBasedTrait
         return RGBColor::create([$red, $green, $blue]);
     }
 
-    private static function adjustColorComponent(float $color, float $adjustmentValue): int {
+    private static function adjustColorComponent(float $color, float $adjustmentValue): int
+    {
         return intval(round(($color + $adjustmentValue) * 255));
     }
 }
