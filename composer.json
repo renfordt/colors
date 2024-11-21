@@ -7,7 +7,8 @@
         "renfordt/clamp": "^1.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^10.5"
+        "phpunit/phpunit": "^10.5",
+        "friendsofphp/php-cs-fixer": "^3.64"
     },
     "license": "MIT",
     "autoload": {
