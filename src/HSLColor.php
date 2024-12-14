@@ -2,6 +2,7 @@
 
 namespace Renfordt\Colors;
 
+use Exception;
 use Renfordt\Colors\Traits\HueBasedTrait;
 
 class HSLColor
