@@ -228,6 +228,41 @@ class RALColor
     private int $RALStr;
 
     /**
+     * Creates an instance of RALColor based on the provided RAL string.
+     *
+     * @param string $RALStr The RAL color string.
+     * @return RALColor An instance of the RALColor.
+     */
+    public static function make(string $RALStr): RALColor
+    {
+        return self::create($RALStr);
+    }
+
+    /**
+     * Creates and returns a new RALColor object configured with the given RAL value.
+     *
+     * @param string|int $RALStr The RAL value to set in the newly created RALColor object.
+     * @return RALColor The newly created RALColor object configured with the specified RAL value.
+     */
+    public static function create(string|int $RALStr): RALColor
+    {
+        $RALColor = new RALColor();
+        $RALColor->setRAL((int)$RALStr);
+        return $RALColor;
+    }
+
+    /**
+     * Sets the RAL string representing the color for the current instance.
+     *
+     * @param int $RALStr The RAL string representing the color to be set.
+     * @return void
+     */
+    public function setRAL(int $RALStr): void
+    {
+        $this->RALStr = $RALStr;
+    }
+
+    /**
      * Converts the RAL color to its RGB representation.
      *
      * @return RGBColor The RGB representation of the RAL color.
@@ -245,42 +280,6 @@ class RALColor
     public function toHex(): HexColor
     {
         return HexColor::create($this->lookup_table[$this->RALStr]);
-    }
-
-    /**
-     * Creates and returns a new RALColor object configured with the given RAL value.
-     *
-     * @param string|int $RALStr The RAL value to set in the newly created RALColor object.
-     * @return RALColor The newly created RALColor object configured with the specified RAL value.
-     */
-    public static function create(string|int $RALStr): RALColor
-    {
-        $RALColor = new RALColor();
-        $RALColor->setRAL((int)$RALStr);
-        return $RALColor;
-    }
-
-    /**
-     * Creates an instance of RALColor based on the provided RAL string.
-     *
-     * @param  string  $RALStr  The RAL color string.
-     * @return RALColor An instance of the RALColor.
-     * @deprecated 1.0.1 Use ::create method
-     */
-    public static function make(string $RALStr): RALColor
-    {
-        return self::create($RALStr);
-    }
-
-    /**
-     * Sets the RAL string representing the color for the current instance.
-     *
-     * @param  int  $RALStr  The RAL string representing the color to be set.
-     * @return void
-     */
-    public function setRAL(int $RALStr): void
-    {
-        $this->RALStr = $RALStr;
     }
 
     /**
@@ -306,7 +305,7 @@ class RALColor
     /**
      * Finds the closest color in a lookup table to a target color.
      *
-     * @param  HexColor  $target  The target hex color.
+     * @param HexColor $target The target hex color.
      * @return RALColor|null The closest hex color in the lookup table to the target color, or null if the lookup table is empty.
      */
     public function findClosestColor(HexColor $target): ?RALColor
@@ -328,14 +327,14 @@ class RALColor
     /**
      * Calculates the color distance between two hex colors.
      *
-     * @param  HexColor  $hex1  The first hex color.
-     * @param  string  $hex2  The second hex color.
+     * @param HexColor $hex1 The first hex color.
+     * @param string $hex2 The second hex color.
      * @return float The color distance between the two hex colors.
      */
     private function getColorDistance(HexColor $hex1, string $hex2): float
     {
-        list($r1, $g1, $b1) = sscanf($hex1, "#%02x%02x%02x") ?: [0,0,0];
-        list($r2, $g2, $b2) = sscanf($hex2, "#%02x%02x%02x") ?: [0,0,0];
+        list($r1, $g1, $b1) = sscanf($hex1, "#%02x%02x%02x") ?: [0, 0, 0];
+        list($r2, $g2, $b2) = sscanf($hex2, "#%02x%02x%02x") ?: [0, 0, 0];
         return sqrt(pow($r2 - $r1, 2) + pow($g2 - $g1, 2) + pow($b2 - $b1, 2));
     }
 }

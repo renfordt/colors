@@ -12,6 +12,46 @@ class RGBColor
     private int $blue;
 
     /**
+     * Creates an RGBColor instance from an array of RGB values.
+     *
+     * @param array{0:int, 1:int, 2:int} $rgb An associative array containing 'red', 'green', and 'blue' keys with their respective color values.
+     * @return RGBColor The RGBColor instance created from the provided RGB values.
+     */
+    public static function make(array $rgb): RGBColor
+    {
+        return self::create($rgb);
+    }
+
+    /**
+     * Creates a new RGBColor object from an array of RGB color values.
+     *
+     * @param array{0:int, 1:int, 2:int} $rgb An array of RGB color values [red, green, blue].
+     * @return RGBColor The new RGBColor object.
+     */
+    public static function create(array $rgb): RGBColor
+    {
+        $rgbColor = new RGBColor();
+        $rgbColor->setRGB($rgb);
+        return $rgbColor;
+    }
+
+    /**
+     * Sets the RGB color values.
+     *
+     * @param array{0:int, 1:int, 2:int} $rgb An array containing the RGB color values.
+     *      The array should have three elements, representing the red, green, and blue values, respectively.
+     *      Each value should be an integer between 0 and 255.
+     * @return void
+     */
+    public function setRGB(array $rgb): void
+    {
+        list($red, $green, $blue) = $rgb;
+        $this->red = (int)clamp($red, 0, 255);
+        $this->green = (int)clamp($green, 0, 255);
+        $this->blue = (int)clamp($blue, 0, 255);
+    }
+
+    /**
      * Get the RGB components of the color.
      *
      * @return array<int> An array containing the red, green, and blue components of the color.
@@ -24,7 +64,7 @@ class RGBColor
     /**
      * Converts the RGB color values to a HSL (Hue, Saturation, Lightness) color representation.
      *
-     * @param  int  $precision  The decimal precision for the saturation and lightness values. Default: 4.
+     * @param int $precision The decimal precision for the saturation and lightness values. Default: 4.
      * @return HSLColor The HSL color representation.
      */
     public function toHSL(int $precision = 4): HSLColor
@@ -40,7 +80,7 @@ class RGBColor
 
 
         return HSLColor::create([
-            (int) round($hue),
+            (int)round($hue),
             round($saturation, $precision),
             round($lightness, $precision)
         ]);
@@ -78,51 +118,9 @@ class RGBColor
     }
 
     /**
-     * Creates a new RGBColor object from an array of RGB color values.
-     *
-     * @param  array{0:int, 1:int, 2:int}  $rgb  An array of RGB color values [red, green, blue].
-     * @return RGBColor The new RGBColor object.
-     */
-    public static function create(array $rgb): RGBColor
-    {
-        $rgbColor = new RGBColor();
-        $rgbColor->setRGB($rgb);
-        return $rgbColor;
-    }
-
-
-    /**
-     * Creates an RGBColor instance from an array of RGB values.
-     *
-     * @param  array{0:int, 1:int, 2:int}  $rgb  An associative array containing 'red', 'green', and 'blue' keys with their respective color values.
-     * @return RGBColor The RGBColor instance created from the provided RGB values.
-     * @deprecated 1.0.1 Use ::create method
-     */
-    public static function make(array $rgb): RGBColor
-    {
-        return self::create($rgb);
-    }
-
-    /**
-     * Sets the RGB color values.
-     *
-     * @param  array{0:int, 1:int, 2:int}  $rgb  An array containing the RGB color values.
-     *      The array should have three elements, representing the red, green, and blue values, respectively.
-     *      Each value should be an integer between 0 and 255.
-     * @return void
-     */
-    public function setRGB(array $rgb): void
-    {
-        list($red, $green, $blue) = $rgb;
-        $this->red = (int) clamp($red, 0, 255);
-        $this->green = (int) clamp($green, 0, 255);
-        $this->blue = (int) clamp($blue, 0, 255);
-    }
-
-    /**
      * Converts the RGB color values to a HSV (Hue, Saturation, Value) color representation.
      *
-     * @param  int  $precision  (optional) The precision used for rounding the saturation and value values. Default: 4
+     * @param int $precision (optional) The precision used for rounding the saturation and value values. Default: 4
      * @return HSVColor The HSV color representation.
      */
     public function toHSV(int $precision = 4): HSVColor
@@ -135,7 +133,7 @@ class RGBColor
         $saturation = $chroma / $maxRGB;
 
         return HSVColor::create([
-            (int) round($hue),
+            (int)round($hue),
             round($saturation, $precision),
             round($value, $precision),
         ]);
@@ -151,6 +149,6 @@ class RGBColor
         $hexRed = str_pad(dechex($this->red), 2, "0", STR_PAD_LEFT);
         $hexGreen = str_pad(dechex($this->green), 2, "0", STR_PAD_LEFT);
         $hexBlue = str_pad(dechex($this->blue), 2, "0", STR_PAD_LEFT);
-        return HexColor::create($hexRed.$hexGreen.$hexBlue);
+        return HexColor::create($hexRed . $hexGreen . $hexBlue);
     }
 }
