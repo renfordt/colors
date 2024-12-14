@@ -61,7 +61,7 @@ class HSLColor
      */
     public function setHue(int $hue): void
     {
-        $this->hue = clamp($hue, 0, 360);
+        $this->hue = (int) clamp($hue, 0, 360);
     }
 
     /**
@@ -82,7 +82,7 @@ class HSLColor
      */
     public function setSaturation(float $saturation): void
     {
-        $this->saturation = clamp($saturation, 0.0, 1.0);
+        $this->saturation = (float) clamp($saturation, 0.0, 1.0);
     }
 
     /**
@@ -103,7 +103,7 @@ class HSLColor
      */
     public function setLightness(float $lightness): void
     {
-        $this->lightness = clamp($lightness, 0.0, 1.0);
+        $this->lightness = (float) clamp($lightness, 0.0, 1.0);
     }
 
     /**
