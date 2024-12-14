@@ -334,8 +334,8 @@ class RALColor
      */
     private function getColorDistance(HexColor $hex1, string $hex2): float
     {
-        list($r1, $g1, $b1) = sscanf($hex1, "#%02x%02x%02x")?:[0,0,0];
-        list($r2, $g2, $b2) = sscanf($hex2, "#%02x%02x%02x")?:[0,0,0];
+        list($r1, $g1, $b1) = sscanf($hex1, "#%02x%02x%02x") ?: [0,0,0];
+        list($r2, $g2, $b2) = sscanf($hex2, "#%02x%02x%02x") ?: [0,0,0];
         return sqrt(pow($r2 - $r1, 2) + pow($g2 - $g1, 2) + pow($b2 - $b1, 2));
     }
 }
