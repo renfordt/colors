@@ -9,9 +9,9 @@ trait HueBasedTrait
     /**
      * Calculate the RGB range based on the normalized hue value.
      *
-     * @param  float  $hueNormalized  The normalized hue value (0-6).
-     * @param  float  $chroma  The chroma value (0 - 360).
-     * @param  float  $secondMax  The second maximum value.
+     * @param float $hueNormalized The normalized hue value (0-6).
+     * @param float $chroma The chroma value (0 - 360).
+     * @param float $secondMax The second maximum value.
      * @return array<int|float> An array containing the RGB color values.
      */
     private static function calculateRGBRange(float $hueNormalized, float $chroma, float $secondMax): array
@@ -37,12 +37,12 @@ trait HueBasedTrait
     /**
      * Finalize the RGB color calculation based on the given parameters.
      *
-     * @param  float  $red  The red component of the RGB color (0-255).
-     * @param  float  $green  The green component of the RGB color (0-255).
-     * @param  float  $blue  The blue component of the RGB color (0-255).
-     * @param  float  $value  The value or lightness component of the RGB color (0-1).
-     * @param  float  $chroma  The chroma component of the RGB color (0-1).
-     * @param  bool  $isLightness  Flag indicating if the calculation is for lightness.
+     * @param float $red The red component of the RGB color (0-255).
+     * @param float $green The green component of the RGB color (0-255).
+     * @param float $blue The blue component of the RGB color (0-255).
+     * @param float $value The value or lightness component of the RGB color (0-1).
+     * @param float $chroma The chroma component of the RGB color (0-1).
+     * @param bool $isLightness Flag indicating if the calculation is for lightness.
      * @return RGBColor An array containing the finalized RGB color values (red, green, blue).
      */
     private static function finalizeRGBCalculation(

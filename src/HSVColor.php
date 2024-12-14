@@ -16,9 +16,23 @@ class HSVColor
     private float $value;
 
     /**
+     * Creates an instance of HSVColor from an array of HSV values.
+     *
+     * This method initializes an HSVColor object using an array of HSV (Hue, Saturation, Value) values
+     * and returns the created HSVColor instance.
+     *
+     * @param array{0:int, 1:float, 2:float} $hsv The array of HSV values used to create the HSVColor.
+     * @return HSVColor The created HSVColor instance.
+     */
+    public static function make(array $hsv): HSVColor
+    {
+        return self::create($hsv);
+    }
+
+    /**
      * Creates a new instance of the HSVColor class based on provided HSV values.
      *
-     * @param  array{0:int, 1:float, 2:float}  $hsv  An array containing the hue, saturation, and value components in that order.
+     * @param array{0:int, 1:float, 2:float} $hsv An array containing the hue, saturation, and value components in that order.
      * @return HSVColor          The newly created HSVColor object.
      */
     public static function create(array $hsv): HSVColor
@@ -29,21 +43,6 @@ class HSVColor
         $hsvColor->setSaturation($saturation);
         $hsvColor->setValue($value);
         return $hsvColor;
-    }
-
-    /**
-     * Creates an instance of HSVColor from an array of HSV values.
-     *
-     * This method initializes an HSVColor object using an array of HSV (Hue, Saturation, Value) values
-     * and returns the created HSVColor instance.
-     *
-     * @param  array{0:int, 1:float, 2:float}  $hsv  The array of HSV values used to create the HSVColor.
-     * @return HSVColor The created HSVColor instance.
-     * @deprecated 1.0.1 Use ::create method
-     */
-    public static function make(array $hsv): HSVColor
-    {
-        return self::create($hsv);
     }
 
     /**
@@ -90,13 +89,13 @@ class HSVColor
     /**
      * Set the hue of the object, clamped between 0 and 360 degrees.
      *
-     * @param  int  $hue  The hue value to set.
+     * @param int $hue The hue value to set.
      *
      * @return void
      */
     public function setHue(int $hue): void
     {
-        $this->hue = (int) clamp($hue, 0, 360);
+        $this->hue = (int)clamp($hue, 0, 360);
     }
 
     /**
@@ -112,13 +111,13 @@ class HSVColor
     /**
      * Set the saturation of the object, clamped between 0.0 and 1.0.
      *
-     * @param  float  $saturation  The saturation value to set.
+     * @param float $saturation The saturation value to set.
      *
      * @return void
      */
     public function setSaturation(float $saturation): void
     {
-        $this->saturation = (float) clamp($saturation, 0.0, 1.0);
+        $this->saturation = (float)clamp($saturation, 0.0, 1.0);
     }
 
     /**
@@ -134,12 +133,12 @@ class HSVColor
     /**
      * Sets the value component of the HSV color.
      *
-     * @param  float  $value  The value to be assigned.
+     * @param float $value The value to be assigned.
      * @return void
      */
     public function setValue(float $value): void
     {
-        $this->value = (float) clamp($value, 0.0, 1.0);
+        $this->value = (float)clamp($value, 0.0, 1.0);
     }
 
     /**

@@ -16,9 +16,20 @@ class HSLColor
     private float $lightness;
 
     /**
+     * Creates a new HSLColor object from an array of HSL values.
+     *
+     * @param array{0:int, 1:float, 2:float} $hsl An array containing the hue, saturation, and lightness values.
+     * @return HSLColor The created HSLColor object.
+     */
+    public static function make(array $hsl): HSLColor
+    {
+        return self::create($hsl);
+    }
+
+    /**
      * Create a new HSLColor instance from an array of HSL values.
      *
-     * @param  array{0:int, 1:float, 2:float}  $hsl  An array containing the HSL values [hue, saturation, lightness].
+     * @param array{0:int, 1:float, 2:float} $hsl An array containing the HSL values [hue, saturation, lightness].
      * @return HSLColor  The newly created HSLColor instance.
      */
     public static function create(array $hsl): HSLColor
@@ -29,18 +40,6 @@ class HSLColor
         $hslColor->setSaturation($saturation);
         $hslColor->setLightness($lightness);
         return $hslColor;
-    }
-
-    /**
-     * Creates a new HSLColor object from an array of HSL values.
-     *
-     * @param  array{0:int, 1:float, 2:float}  $hsl  An array containing the hue, saturation, and lightness values.
-     * @return HSLColor The created HSLColor object.
-     * @deprecated 1.0.1 Use ::create method
-     */
-    public static function make(array $hsl): HSLColor
-    {
-        return self::create($hsl);
     }
 
     /**
@@ -56,12 +55,12 @@ class HSLColor
     /**
      * Set the hue value of the color.
      *
-     * @param  int  $hue  The hue value to be set (0-360).
+     * @param int $hue The hue value to be set (0-360).
      * @return void
      */
     public function setHue(int $hue): void
     {
-        $this->hue = (int) clamp($hue, 0, 360);
+        $this->hue = (int)clamp($hue, 0, 360);
     }
 
     /**
@@ -77,12 +76,12 @@ class HSLColor
     /**
      * Set the saturation value of the color.
      *
-     * @param  float  $saturation  The saturation value to be set (0.0-1.0).
+     * @param float $saturation The saturation value to be set (0.0-1.0).
      * @return void
      */
     public function setSaturation(float $saturation): void
     {
-        $this->saturation = (float) clamp($saturation, 0.0, 1.0);
+        $this->saturation = (float)clamp($saturation, 0.0, 1.0);
     }
 
     /**
@@ -98,12 +97,12 @@ class HSLColor
     /**
      * Set the lightness value of the color.
      *
-     * @param  float  $lightness  The new lightness value for the color (0.0-1.0).
+     * @param float $lightness The new lightness value for the color (0.0-1.0).
      * @return void
      */
     public function setLightness(float $lightness): void
     {
-        $this->lightness = (float) clamp($lightness, 0.0, 1.0);
+        $this->lightness = (float)clamp($lightness, 0.0, 1.0);
     }
 
     /**
@@ -119,7 +118,7 @@ class HSLColor
     /**
      * Brighten the color by a specified amount.
      *
-     * @param  int  $amount  The amount to brighten the color by as a percentage (default: 10).
+     * @param int $amount The amount to brighten the color by as a percentage (default: 10).
      * @return void
      */
     public function brighten(int $amount = 10): void
@@ -130,7 +129,7 @@ class HSLColor
     /**
      * Darken the color by reducing its lightness value.
      *
-     * @param  int  $amount  The amount by which to darken the color (0-100).
+     * @param int $amount The amount by which to darken the color (0-100).
      * @return void
      */
     public function darken(int $amount = 10): void
