@@ -152,7 +152,6 @@ class HSLColor
      * Convert HSL color to RGB color space.
      *
      * @return RGBColor An array containing the RGB color values (red, green, blue).
-     * @throws Exception If RGB calculation is not possible.
      */
     public function toRGB(): RGBColor
     {
@@ -162,10 +161,6 @@ class HSLColor
         $intermediateValue = $chroma * (1 - abs($hMod2 - 1));
 
         list($red, $green, $blue) = self::calculateRGBRange($hueNormalized, $chroma, $intermediateValue);
-
-        if (!isset($red) || !isset($green) || !isset($blue)) {
-            throw new Exception('RGB calculation not possible. Check inputs!');
-        }
 
         return self::finalizeRGBCalculation($red, $green, $blue, $this->lightness, $chroma, true);
     }
