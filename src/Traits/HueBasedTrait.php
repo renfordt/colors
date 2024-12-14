@@ -12,7 +12,7 @@ trait HueBasedTrait
      * @param  float  $hueNormalized  The normalized hue value (0-6).
      * @param  float  $chroma  The chroma value (0 - 360).
      * @param  float  $secondMax  The second maximum value.
-     * @return array An array containing the RGB color values.
+     * @return array<int|float> An array containing the RGB color values.
      */
     private static function calculateRGBRange(float $hueNormalized, float $chroma, float $secondMax): array
     {
