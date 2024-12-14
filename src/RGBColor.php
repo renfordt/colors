@@ -14,7 +14,7 @@ class RGBColor
     /**
      * Get the RGB components of the color.
      *
-     * @return array An array containing the red, green, and blue components of the color.
+     * @return array<int> An array containing the red, green, and blue components of the color.
      */
     public function getRGB(): array
     {
@@ -40,7 +40,7 @@ class RGBColor
 
 
         return HSLColor::create([
-            round($hue),
+            (int) round($hue),
             round($saturation, $precision),
             round($lightness, $precision)
         ]);
@@ -49,7 +49,7 @@ class RGBColor
     /**
      * Calculate the components Chroma, Value, and Hue based on RGB color.
      *
-     * @return array An array containing the calculated values (maxRGB, minRGB, chroma, value, hue).
+     * @return array{0:int, 1:int, 2:float, 3:float, 4:float} An array containing the calculated values (maxRGB, minRGB, chroma, value, hue).
      */
     private function calculateCVH(): array
     {
@@ -80,7 +80,7 @@ class RGBColor
     /**
      * Creates a new RGBColor object from an array of RGB color values.
      *
-     * @param  array  $rgb  An array of RGB color values [red, green, blue].
+     * @param  array{0:int, 1:int, 2:int}  $rgb  An array of RGB color values [red, green, blue].
      * @return RGBColor The new RGBColor object.
      */
     public static function create(array $rgb): RGBColor
@@ -94,7 +94,7 @@ class RGBColor
     /**
      * Creates an RGBColor instance from an array of RGB values.
      *
-     * @param  array  $rgb  An associative array containing 'red', 'green', and 'blue' keys with their respective color values.
+     * @param  array{0:int, 1:int, 2:int}  $rgb  An associative array containing 'red', 'green', and 'blue' keys with their respective color values.
      * @return RGBColor The RGBColor instance created from the provided RGB values.
      * @deprecated 1.0.1 Use ::create method
      */
@@ -106,7 +106,7 @@ class RGBColor
     /**
      * Sets the RGB color values.
      *
-     * @param  array  $rgb  An array containing the RGB color values.
+     * @param  array{0:int, 1:int, 2:int}  $rgb  An array containing the RGB color values.
      *      The array should have three elements, representing the red, green, and blue values, respectively.
      *      Each value should be an integer between 0 and 255.
      * @return void
@@ -114,9 +114,9 @@ class RGBColor
     public function setRGB(array $rgb): void
     {
         list($red, $green, $blue) = $rgb;
-        $this->red = clamp($red, 0, 255);
-        $this->green = clamp($green, 0, 255);
-        $this->blue = clamp($blue, 0, 255);
+        $this->red = (int) clamp($red, 0, 255);
+        $this->green = (int) clamp($green, 0, 255);
+        $this->blue = (int) clamp($blue, 0, 255);
     }
 
     /**
@@ -135,7 +135,7 @@ class RGBColor
         $saturation = $chroma / $maxRGB;
 
         return HSVColor::create([
-            round($hue),
+            (int) round($hue),
             round($saturation, $precision),
             round($value, $precision),
         ]);

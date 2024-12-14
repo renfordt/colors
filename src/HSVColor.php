@@ -18,7 +18,7 @@ class HSVColor
     /**
      * Creates a new instance of the HSVColor class based on provided HSV values.
      *
-     * @param  array  $hsv  An array containing the hue, saturation, and value components in that order.
+     * @param  array{0:int, 1:float, 2:float}  $hsv  An array containing the hue, saturation, and value components in that order.
      * @return HSVColor          The newly created HSVColor object.
      */
     public static function create(array $hsv): HSVColor
@@ -37,7 +37,7 @@ class HSVColor
      * This method initializes an HSVColor object using an array of HSV (Hue, Saturation, Value) values
      * and returns the created HSVColor instance.
      *
-     * @param  array  $hsv  The array of HSV values used to create the HSVColor.
+     * @param  array{0:int, 1:float, 2:float}  $hsv  The array of HSV values used to create the HSVColor.
      * @return HSVColor The created HSVColor instance.
      * @deprecated 1.0.1 Use ::create method
      */
@@ -96,7 +96,7 @@ class HSVColor
      */
     public function setHue(int $hue): void
     {
-        $this->hue = clamp($hue, 0, 360);
+        $this->hue = (int) clamp($hue, 0, 360);
     }
 
     /**
@@ -118,7 +118,7 @@ class HSVColor
      */
     public function setSaturation(float $saturation): void
     {
-        $this->saturation = clamp($saturation, 0.0, 1.0);
+        $this->saturation = (float) clamp($saturation, 0.0, 1.0);
     }
 
     /**
@@ -139,13 +139,13 @@ class HSVColor
      */
     public function setValue(float $value): void
     {
-        $this->value = clamp($value, 0.0, 1.0);
+        $this->value = (float) clamp($value, 0.0, 1.0);
     }
 
     /**
      * Retrieves the HSV color components.
      *
-     * @return array The HSV color components as an array, where:
+     * @return array{0:int, 1:float, 2:float} The HSV color components as an array, where:
      *               - The first element is the hue component.
      *               - The second element is the saturation component.
      *               - The third element is the value component.

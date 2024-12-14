@@ -18,7 +18,7 @@ class HSLColor
     /**
      * Create a new HSLColor instance from an array of HSL values.
      *
-     * @param  array  $hsl  An array containing the HSL values [hue, saturation, lightness].
+     * @param  array{0:int, 1:float, 2:float}  $hsl  An array containing the HSL values [hue, saturation, lightness].
      * @return HSLColor  The newly created HSLColor instance.
      */
     public static function create(array $hsl): HSLColor
@@ -34,7 +34,7 @@ class HSLColor
     /**
      * Creates a new HSLColor object from an array of HSL values.
      *
-     * @param  array  $hsl  An array containing the hue, saturation, and lightness values.
+     * @param  array{0:int, 1:float, 2:float}  $hsl  An array containing the hue, saturation, and lightness values.
      * @return HSLColor The created HSLColor object.
      * @deprecated 1.0.1 Use ::create method
      */
@@ -61,7 +61,7 @@ class HSLColor
      */
     public function setHue(int $hue): void
     {
-        $this->hue = clamp($hue, 0, 360);
+        $this->hue = (int) clamp($hue, 0, 360);
     }
 
     /**
@@ -82,7 +82,7 @@ class HSLColor
      */
     public function setSaturation(float $saturation): void
     {
-        $this->saturation = clamp($saturation, 0.0, 1.0);
+        $this->saturation = (float) clamp($saturation, 0.0, 1.0);
     }
 
     /**
@@ -103,13 +103,13 @@ class HSLColor
      */
     public function setLightness(float $lightness): void
     {
-        $this->lightness = clamp($lightness, 0.0, 1.0);
+        $this->lightness = (float) clamp($lightness, 0.0, 1.0);
     }
 
     /**
      * Get the HSL (Hue, Saturation, Lightness) values of the color.
      *
-     * @return array The HSL values as an array with three elements: [hue, saturation, lightness].
+     * @return array{0:int, 1:float, 2:float} The HSL values as an array with three elements: [hue, saturation, lightness].
      */
     public function getHSL(): array
     {
@@ -152,7 +152,6 @@ class HSLColor
      * Convert HSL color to RGB color space.
      *
      * @return RGBColor An array containing the RGB color values (red, green, blue).
-     * @throws Exception If RGB calculation is not possible.
      */
     public function toRGB(): RGBColor
     {
@@ -162,10 +161,6 @@ class HSLColor
         $intermediateValue = $chroma * (1 - abs($hMod2 - 1));
 
         list($red, $green, $blue) = self::calculateRGBRange($hueNormalized, $chroma, $intermediateValue);
-
-        if (!isset($red) || !isset($green) || !isset($blue)) {
-            throw new Exception('RGB calculation not possible. Check inputs!');
-        }
 
         return self::finalizeRGBCalculation($red, $green, $blue, $this->lightness, $chroma, true);
     }

@@ -108,9 +108,9 @@ class HexColor
             );
         } else {
             $color = array(
-                hexdec(str_repeat(substr($this->hexStr, 0, 1), 2)),
-                hexdec(str_repeat(substr($this->hexStr, 1, 1), 2)),
-                hexdec(str_repeat(substr($this->hexStr, 2, 1), 2))
+                (int) hexdec(str_repeat(substr($this->hexStr, 0, 1), 2)),
+                (int) hexdec(str_repeat(substr($this->hexStr, 1, 1), 2)),
+                (int) hexdec(str_repeat(substr($this->hexStr, 2, 1), 2))
             );
         }
 
