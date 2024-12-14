@@ -96,7 +96,7 @@ class HSVColor
      */
     public function setHue(int $hue): void
     {
-        $this->hue = clamp($hue, 0, 360);
+        $this->hue = (int) clamp($hue, 0, 360);
     }
 
     /**
@@ -118,7 +118,7 @@ class HSVColor
      */
     public function setSaturation(float $saturation): void
     {
-        $this->saturation = clamp($saturation, 0.0, 1.0);
+        $this->saturation = (float) clamp($saturation, 0.0, 1.0);
     }
 
     /**
@@ -139,7 +139,7 @@ class HSVColor
      */
     public function setValue(float $value): void
     {
-        $this->value = clamp($value, 0.0, 1.0);
+        $this->value = (float) clamp($value, 0.0, 1.0);
     }
 
     /**
