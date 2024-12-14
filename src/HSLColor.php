@@ -18,7 +18,7 @@ class HSLColor
     /**
      * Create a new HSLColor instance from an array of HSL values.
      *
-     * @param  array  $hsl  An array containing the HSL values [hue, saturation, lightness].
+     * @param  array{0:int, 1:float, 2:float}  $hsl  An array containing the HSL values [hue, saturation, lightness].
      * @return HSLColor  The newly created HSLColor instance.
      */
     public static function create(array $hsl): HSLColor
@@ -34,7 +34,7 @@ class HSLColor
     /**
      * Creates a new HSLColor object from an array of HSL values.
      *
-     * @param  array  $hsl  An array containing the hue, saturation, and lightness values.
+     * @param  array{0:int, 1:float, 2:float}  $hsl  An array containing the hue, saturation, and lightness values.
      * @return HSLColor The created HSLColor object.
      * @deprecated 1.0.1 Use ::create method
      */
@@ -109,7 +109,7 @@ class HSLColor
     /**
      * Get the HSL (Hue, Saturation, Lightness) values of the color.
      *
-     * @return array The HSL values as an array with three elements: [hue, saturation, lightness].
+     * @return array{0:int, 1:float, 2:float} The HSL values as an array with three elements: [hue, saturation, lightness].
      */
     public function getHSL(): array
     {
