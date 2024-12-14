@@ -114,9 +114,9 @@ class RGBColor
     public function setRGB(array $rgb): void
     {
         list($red, $green, $blue) = $rgb;
-        $this->red = clamp($red, 0, 255);
-        $this->green = clamp($green, 0, 255);
-        $this->blue = clamp($blue, 0, 255);
+        $this->red = (int) clamp($red, 0, 255);
+        $this->green = (int) clamp($green, 0, 255);
+        $this->blue = (int) clamp($blue, 0, 255);
     }
 
     /**
