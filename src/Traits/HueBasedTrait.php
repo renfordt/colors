@@ -14,10 +14,11 @@ trait HueBasedTrait
      * @param float $hueNormalized The normalized hue value (0-6).
      * @param float $chroma The chroma value (0 - 360).
      * @param float $secondMax The second maximum value.
-     * @return array<float> An array containing the RGB color values.
+     * @return array<int, float> An array containing the RGB color values.
      */
     private static function calculateRGBRange(float $hueNormalized, float $chroma, float $secondMax): array
     {
+        $array = [0.0, 0.0, 0.0];
         $rgbMap = [
             [[$chroma, $secondMax, 0.0], 1],
             [[$secondMax, $chroma, 0.0], 2],
@@ -29,11 +30,12 @@ trait HueBasedTrait
 
         foreach ($rgbMap as $rgb) {
             if ($hueNormalized < $rgb[1]) {
-                return $rgb[0];
+                $array = $rgb[0];
+                break;
             }
         }
 
-        return [0.0, 0.0, 0.0];
+        return $array;
     }
 
     /**
