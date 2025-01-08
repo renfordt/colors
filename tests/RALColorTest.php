@@ -1,55 +1,24 @@
 <?php
 
-namespace Renfordt\Colors\Tests;
+declare(strict_types=1);
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\UsesClass;
+use Renfordt\Colors\HSLColor;
+use Renfordt\Colors\HSVColor;
 use Renfordt\Colors\RALColor;
 use Renfordt\Colors\HexColor;
 use PHPUnit\Framework\TestCase;
+use Renfordt\Colors\RGBColor;
 
-/**
- * RALColorTest tests the functionality of the RALColor class, exclusive to the toHex method.
- */
+#[CoversClass(RALColor::class)]
+#[UsesClass(HexColor::class)]
+#[UsesClass(HSVColor::class)]
+#[UsesClass(RGBColor::class)]
+#[UsesClass(HSLColor::class)]
 class RALColorTest extends TestCase
 {
-    /**
-     * The testToHexValid_RALStr tests the toHex method for valid input.
-     *
-     * @dataProvider RALStrValues
-     */
-    public function testToHexValid_RALStr($RALStr, $expected)
-    {
-        $RALColor = RALColor::create($RALStr);
-        $actual = $RALColor->toHex();
-        $this->assertEquals($expected, $actual);
-    }
-
-    /**
-     * The testToHexValid_RALStr tests the toHex method for valid input.
-     *
-     * @dataProvider RALStrValues
-     */
-    public function testToHexValid_RALStrWithMake($RALStr, $expected)
-    {
-        $RALColor = RALColor::make($RALStr);
-        $actual = $RALColor->toHex();
-        $this->assertEquals($expected, $actual);
-    }
-
-    /**
-     * Tests for the toRGB method in the RALColor class.
-     *
-     * This test validates that the conversion from RALColor to
-     * RGBColor is correct for valid RALColor input.
-     *
-     * @dataProvider RALStrValues
-     */
-    public function testToRGBValid_RALStr($RALStr, $expectedHex) {
-        $RALColor = RALColor::create($RALStr);
-        $expectedRGB = HexColor::create($expectedHex)->toRGB();
-        $actualRGB = $RALColor->toRGB();
-        $this->assertEquals($expectedRGB, $actualRGB);
-    }
-
     /**
      * The RALStrValues method is a dataProvider for the testToHexValid_RALStr and
      * testToRGBValid_RALStr tests.
@@ -81,18 +50,6 @@ class RALColorTest extends TestCase
     }
 
     /**
-     * The testFindClosestColor tests the findClosestColor method for valid input.
-     *
-     * @dataProvider findClosestColorValues
-     */
-    public function testFindClosestColor(HexColor $hexColor, $expected)
-    {
-        $RALColor = new RALColor();
-        $actual = $RALColor->findClosestColor($hexColor);
-        $this->assertEquals($expected, $actual->toHex());
-    }
-
-    /**
      * The findClosestColorValues method is a dataProvider for the testFindClosestColor test.
      */
     public static function findClosestColorValues(): array
@@ -105,6 +62,59 @@ class RALColorTest extends TestCase
             [HexColor::create('#FFFFFF'), '#EFF0EB']
         ];
     }
+
+    /**
+     * The testToHexValid_RALStr tests the toHex method for valid input.
+     *
+     */
+    #[DataProvider('RALStrValues')]
+    public function testToHexValid_RALStr(string $RALStr, string $expected): void
+    {
+        $RALColor = RALColor::create($RALStr);
+        $actual = $RALColor->toHex();
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * The testToHexValid_RALStr tests the toHex method for valid input.
+     *
+     */
+    #[DataProvider('RALStrValues')]
+    public function testToHexValid_RALStrWithMake(string $RALStr, string $expected): void
+    {
+        $RALColor = RALColor::make($RALStr);
+        $actual = $RALColor->toHex();
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * Tests for the toRGB method in the RALColor class.
+     *
+     * This test validates that the conversion from RALColor to
+     * RGBColor is correct for valid RALColor input.
+     *
+     */
+    #[DataProvider('RALStrValues')]
+    public function testToRGBValid_RALStr(string $RALStr, string $expectedHex): void
+    {
+        $RALColor = RALColor::create($RALStr);
+        $expectedRGB = HexColor::create($expectedHex)->toRGB();
+        $actualRGB = $RALColor->toRGB();
+        $this->assertEquals($expectedRGB, $actualRGB);
+    }
+
+    /**
+     * The testFindClosestColor tests the findClosestColor method for valid input.
+     *
+     */
+    #[DataProvider('findClosestColorValues')]
+    public function testFindClosestColor(HexColor $hexColor, string $expected): void
+    {
+        $RALColor = new RALColor();
+        $actual = $RALColor->findClosestColor($hexColor);
+        $this->assertEquals($expected, $actual->toHex());
+    }
+
     /**
      * Add test for the setRAL method in the RALColor class.
      *
@@ -113,20 +123,22 @@ class RALColorTest extends TestCase
     public function testSetRAL_Valid_RALStr(): void
     {
         $RALColor = new RALColor();
-        $RALColor->setRAL('1000');
+        $RALColor->setRAL(1000);
         $expected = '#C5BB8A';
         $actual = $RALColor->toHex()->getHexStr();
         $this->assertEquals($expected, $actual);
     }
+
     /**
      * Tests for the toHSL method in the RALColor class.
      *
      * This test validates that the conversion from RALColor to
      * HSLColor is correct for valid RALColor input.
      *
-     * @dataProvider RALStrValues
      */
-    public function testToHSLValid_RALStr($RALStr, $expectedHex) {
+    #[DataProvider('RALStrValues')]
+    public function testToHSLValid_RALStr(string $RALStr, string $expectedHex): void
+    {
         $RALColor = RALColor::create($RALStr);
         $expectedHSL = HexColor::create($expectedHex)->toHSL();
         $actualHSL = $RALColor->toHSL();
@@ -139,9 +151,10 @@ class RALColorTest extends TestCase
      * This test validates that the conversion from RALColor to
      * HSVColor is correct for valid RALColor input.
      *
-     * @dataProvider RALStrValues
      */
-    public function testToHSVValid_RALStr($RALStr, $expectedHex) {
+    #[DataProvider('RALStrValues')]
+    public function testToHSVValid_RALStr(string $RALStr, string $expectedHex): void
+    {
         $RALColor = RALColor::create($RALStr);
         $expectedHSV = HexColor::create($expectedHex)->toHSV();
         $actualHSV = $RALColor->toHSV();

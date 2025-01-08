@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Renfordt\Colors;
 
 use InvalidArgumentException;
@@ -36,6 +38,11 @@ class HexColor
         return $hexColor;
     }
 
+    /**
+     * Converts the object to its string representation.
+     *
+     * @return string The string representation of the object.
+     */
     public function __toString(): string
     {
         return $this->getHexStr();
@@ -59,46 +66,16 @@ class HexColor
      *
      * @param string $hexStr The hexadecimal string to set.
      *
-     * @return void
      * @throws InvalidArgumentException if the format of the hex is invalid.
      *
      */
     public function setHexStr(string $hexStr): void
     {
-        $hexStr = HexColor::removeHash($hexStr);
-        if (!self::isValidHex($hexStr)) {
+        $hexStr = $this->removeHash($hexStr);
+        if (!$this->isValidHex($hexStr)) {
             throw new InvalidArgumentException('The format of the hex is invalid.');
         }
         $this->hexStr = $hexStr;
-    }
-
-    /**
-     * Removes the '#' character from the hexadecimal string.
-     *
-     * @param string $hexStr The hexadecimal string.
-     *
-     * @return string The hexadecimal string without the '#' character.
-     */
-    private static function removeHash(string $hexStr): string
-    {
-        return str_replace('#', '', $hexStr);
-    }
-
-    /**
-     * Checks if a given string is a valid hexadecimal color code.
-     *
-     * @param string $hexString The string to check if it is a valid hexadecimal color code.
-     *
-     * @return bool Returns true if the given string is a valid hexadecimal color code, otherwise returns false.
-     */
-    private static function isValidHex(string $hexString): bool
-    {
-        if (strlen($hexString) !== 3
-            && strlen($hexString) !== 6
-            || preg_match("/^[0-9a-fA-F]+$/", $hexString) !== 1) {
-            return false;
-        }
-        return true;
     }
 
     /**
@@ -151,5 +128,34 @@ class HexColor
     public function toHSV(int $precision = 4): HSVColor
     {
         return $this->toRGB()->toHSV($precision);
+    }
+
+    /**
+     * Removes the '#' character from the hexadecimal string.
+     *
+     * @param string $hexStr The hexadecimal string.
+     *
+     * @return string The hexadecimal string without the '#' character.
+     */
+    private function removeHash(string $hexStr): string
+    {
+        return str_replace('#', '', $hexStr);
+    }
+
+    /**
+     * Checks if a given string is a valid hexadecimal color code.
+     *
+     * @param string $hexString The string to check if it is a valid hexadecimal color code.
+     *
+     * @return bool Returns true if the given string is a valid hexadecimal color code, otherwise returns false.
+     */
+    private function isValidHex(string $hexString): bool
+    {
+        if (strlen($hexString) !== 3
+            && strlen($hexString) !== 6
+            || preg_match("/^[0-9a-fA-F]+$/", $hexString) !== 1) {
+            return false;
+        }
+        return true;
     }
 }

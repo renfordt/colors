@@ -1,13 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Renfordt\Colors\HexColor;
+use Renfordt\Colors\HSLColor;
+use Renfordt\Colors\HSVColor;
 use Renfordt\Colors\RGBColor;
 
-/**
- * @covers \Renfordt\Colors\HexColor
- */
+#[CoversClass(HexColor::class)]
+#[UsesClass(RGBColor::class)]
+#[UsesClass(HSLColor::class)]
+#[UsesClass(HSVColor::class)]
 class HexColorTest extends TestCase
 {
     /**
@@ -23,6 +30,26 @@ class HexColorTest extends TestCase
             'Dark Slate Grey' => ['#345', [51, 68, 85]],
             'fuchsia' => ['#ff00ff', [255, 0, 255]],
         ];
+    }
+
+    /**
+     * @covers \Renfordt\Colors\HexColor::__toString
+     */
+    public function test_toString(): void
+    {
+        $color = HexColor::create('123abc');
+        $this->assertSame('#123abc', (string)$color);
+    }
+
+    /**
+     * @covers \Renfordt\Colors\HexColor::__toString
+     */
+    public function test_toString_with_invalid_hex(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The format of the hex is invalid.');
+        $color = new HexColor();
+        $color->setHexStr('invalid_hex');
     }
 
     public static function hexToHSLProvider(): array
@@ -52,7 +79,7 @@ class HexColorTest extends TestCase
     /**
      * @covers \Renfordt\Colors\HexColor::setHexStr
      */
-    public function test_valid_hex_string()
+    public function test_valid_hex_string(): void
     {
         $color = new HexColor();
         $color->setHexStr('#123abc');
@@ -119,7 +146,7 @@ class HexColorTest extends TestCase
      * @covers       \Renfordt\Colors\HexColor::toRGB
      */
     #[DataProvider('hexToRgbProvider')]
-    public function test_toRGB($hex, $expected): void
+    public function test_toRGB(string $hex, array $expected): void
     {
         $color = new HexColor();
         $color->setHexStr($hex);
@@ -127,7 +154,7 @@ class HexColorTest extends TestCase
 
     }
 
-    public function test_withHash_returns_hashed_hex_string()
+    public function test_withHash_returns_hashed_hex_string(): void
     {
         $color = new HexColor();
         $color->setHexStr('#fff');
@@ -138,7 +165,7 @@ class HexColorTest extends TestCase
     /**
      * @covers \Renfordt\Colors\HexColor::toRGB
      */
-    public function test_toRGB_with_invalid_hex()
+    public function test_toRGB_with_invalid_hex(): void
     {
         $color = new HexColor();
         $this->expectException(InvalidArgumentException::class);
@@ -150,7 +177,7 @@ class HexColorTest extends TestCase
     /**
      * @covers \Renfordt\Colors\HexColor::toRGB
      */
-    public function test_toRGB_with_invalid_hex_length()
+    public function test_toRGB_with_invalid_hex_length(): void
     {
         $color = new HexColor();
         $this->expectException(InvalidArgumentException::class);
@@ -160,14 +187,14 @@ class HexColorTest extends TestCase
     }
 
     #[DataProvider('hexToHSLProvider')]
-    public function test_toHSL($hex, $expected): void
+    public function test_toHSL(string $hex, array $expected): void
     {
         $color = HexColor::create($hex);
         $this->assertSame($expected, $color->toHSL()->getHSL());
     }
 
     #[DataProvider('hexToHSVProvider')]
-    public function test_toHSV($hex, $expected): void
+    public function test_toHSV(string $hex, array $expected): void
     {
         $color = HexColor::create($hex);
         $this->assertSame($expected, $color->toHSV()->getHSV());

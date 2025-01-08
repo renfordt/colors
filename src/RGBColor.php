@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Renfordt\Colors;
 
 class RGBColor
@@ -41,7 +43,6 @@ class RGBColor
      * @param array{0:int, 1:int, 2:int} $rgb An array containing the RGB color values.
      *      The array should have three elements, representing the red, green, and blue values, respectively.
      *      Each value should be an integer between 0 and 255.
-     * @return void
      */
     public function setRGB(array $rgb): void
     {
@@ -150,5 +151,15 @@ class RGBColor
         $hexGreen = str_pad(dechex($this->green), 2, "0", STR_PAD_LEFT);
         $hexBlue = str_pad(dechex($this->blue), 2, "0", STR_PAD_LEFT);
         return HexColor::create($hexRed . $hexGreen . $hexBlue);
+    }
+
+    /**
+     * Convert the color to an array representation.
+     *
+     * @return array<int> An associative array containing the RGB values of the color.
+     */
+    public function toArray(): array
+    {
+        return $this->getRGB();
     }
 }

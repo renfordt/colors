@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Renfordt\Colors;
 
 class RALColor
@@ -30,7 +32,7 @@ class RALColor
         1023 => '#E6BE05',
         1024 => '#AD9451',
         1026 => '#FFFF00',
-        1027 => '#998420;',
+        1027 => '#998420',
         1028 => '#F2A500',
         1032 => '#CFA81E',
         1033 => '#E4A02D',
@@ -255,7 +257,6 @@ class RALColor
      * Sets the RAL string representing the color for the current instance.
      *
      * @param int $RALStr The RAL string representing the color to be set.
-     * @return void
      */
     public function setRAL(int $RALStr): void
     {
@@ -333,8 +334,9 @@ class RALColor
      */
     private function getColorDistance(HexColor $hex1, string $hex2): float
     {
-        list($r1, $g1, $b1) = sscanf($hex1, "#%02x%02x%02x") ?: [0, 0, 0];
-        list($r2, $g2, $b2) = sscanf($hex2, "#%02x%02x%02x") ?: [0, 0, 0];
+        list($r1, $g1, $b1) = $hex1->toRGB()->toArray();
+        list($r2, $g2, $b2) = HexColor::create($hex2)->toRGB()->toArray();
+
         return sqrt(pow($r2 - $r1, 2) + pow($g2 - $g1, 2) + pow($b2 - $b1, 2));
     }
 }

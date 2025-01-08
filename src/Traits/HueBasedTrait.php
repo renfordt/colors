@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Renfordt\Colors\Traits;
 
 use Renfordt\Colors\RGBColor;
@@ -12,17 +14,17 @@ trait HueBasedTrait
      * @param float $hueNormalized The normalized hue value (0-6).
      * @param float $chroma The chroma value (0 - 360).
      * @param float $secondMax The second maximum value.
-     * @return array<int|float> An array containing the RGB color values.
+     * @return array<float> An array containing the RGB color values.
      */
     private static function calculateRGBRange(float $hueNormalized, float $chroma, float $secondMax): array
     {
         $rgbMap = [
-            [[$chroma, $secondMax, 0], 1],
-            [[$secondMax, $chroma, 0], 2],
-            [[0, $chroma, $secondMax], 3],
-            [[0, $secondMax, $chroma], 4],
-            [[$secondMax, 0, $chroma], 5],
-            [[$chroma, 0, $secondMax], 6],
+            [[$chroma, $secondMax, 0.0], 1],
+            [[$secondMax, $chroma, 0.0], 2],
+            [[0.0, $chroma, $secondMax], 3],
+            [[0.0, $secondMax, $chroma], 4],
+            [[$secondMax, 0.0, $chroma], 5],
+            [[$chroma, 0.0, $secondMax], 6],
         ];
 
         foreach ($rgbMap as $rgb) {
@@ -31,7 +33,7 @@ trait HueBasedTrait
             }
         }
 
-        return [];
+        return [0.0, 0.0, 0.0];
     }
 
     /**

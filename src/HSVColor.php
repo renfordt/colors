@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Renfordt\Colors;
 
 use Renfordt\Colors\Traits\HueBasedTrait;
@@ -90,8 +92,6 @@ class HSVColor
      * Set the hue of the object, clamped between 0 and 360 degrees.
      *
      * @param int $hue The hue value to set.
-     *
-     * @return void
      */
     public function setHue(int $hue): void
     {
@@ -112,8 +112,6 @@ class HSVColor
      * Set the saturation of the object, clamped between 0.0 and 1.0.
      *
      * @param float $saturation The saturation value to set.
-     *
-     * @return void
      */
     public function setSaturation(float $saturation): void
     {
@@ -134,7 +132,6 @@ class HSVColor
      * Sets the value component of the HSV color.
      *
      * @param float $value The value to be assigned.
-     * @return void
      */
     public function setValue(float $value): void
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Renfordt\Colors;
 
 use Renfordt\Colors\Traits\HueBasedTrait;
@@ -56,7 +58,6 @@ class HSLColor
      * Set the hue value of the color.
      *
      * @param int $hue The hue value to be set (0-360).
-     * @return void
      */
     public function setHue(int $hue): void
     {
@@ -77,7 +78,6 @@ class HSLColor
      * Set the saturation value of the color.
      *
      * @param float $saturation The saturation value to be set (0.0-1.0).
-     * @return void
      */
     public function setSaturation(float $saturation): void
     {
@@ -98,7 +98,6 @@ class HSLColor
      * Set the lightness value of the color.
      *
      * @param float $lightness The new lightness value for the color (0.0-1.0).
-     * @return void
      */
     public function setLightness(float $lightness): void
     {
@@ -119,7 +118,6 @@ class HSLColor
      * Brighten the color by a specified amount.
      *
      * @param int $amount The amount to brighten the color by as a percentage (default: 10).
-     * @return void
      */
     public function brighten(int $amount = 10): void
     {
@@ -130,7 +128,6 @@ class HSLColor
      * Darken the color by reducing its lightness value.
      *
      * @param int $amount The amount by which to darken the color (0-100).
-     * @return void
      */
     public function darken(int $amount = 10): void
     {

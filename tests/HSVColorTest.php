@@ -1,16 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Renfordt\Colors\HexColor;
+use Renfordt\Colors\HSLColor;
 use Renfordt\Colors\HSVColor;
 use Renfordt\Colors\RGBColor;
 
-/**
- * Class HSVColorTest
- *
- * Test Suite to verify functionality of the HSVColor class' make function.
- */
+#[CoversClass(HSVColor::class)]
+#[UsesClass(RGBColor::class)]
+#[UsesClass(HexColor::class)]
+#[UsesClass(HSLColor::class)]
 class HSVColorTest extends TestCase
 {
     public static function provideHSVData(): array
@@ -29,7 +33,7 @@ class HSVColorTest extends TestCase
      * @covers       \Renfordt\Colors\HSLColor::create
      */
     #[DataProvider('provideHSVData')]
-    public function testCreate($hsv, $rgb, $hex): void
+    public function testCreate(array $hsv, array $rgb, string $hex): void
     {
         list($hue, $saturation, $value) = $hsv;
         $hsvColor = HSVColor::create($hsv);
@@ -41,7 +45,7 @@ class HSVColorTest extends TestCase
     }
 
     #[DataProvider('provideHSVData')]
-    public function testMake($hsv, $rgb, $hex): void
+    public function testMake(array $hsv, array $rgb, string $hex): void
     {
         list($hue, $saturation, $value) = $hsv;
         $hsvColor = HSVColor::make($hsv);
@@ -56,7 +60,7 @@ class HSVColorTest extends TestCase
      * @covers       \Renfordt\Colors\HSVColor::toRGB
      */
     #[DataProvider('provideHSVData')]
-    public function testToRGB($hsv, $rgb, $hex): void
+    public function testToRGB(array $hsv, array $rgb, string $hex): void
     {
         $hsvColor = HSVColor::create($hsv);
         $rgbColor = $hsvColor->toRGB();
@@ -69,12 +73,27 @@ class HSVColorTest extends TestCase
      * @covers       \Renfordt\Colors\HSVColor::toHex
      */
     #[DataProvider('provideHSVData')]
-    public function testToHex($hsv, $rgb, $hex): void
+    public function testToHex(array $hsv, array $rgb, string $hex): void
     {
         $hsvColor = HSVColor::create($hsv);
         $hexColor = $hsvColor->toHex();
 
         $this->assertInstanceOf(HexColor::class, $hexColor);
         $this->assertEquals($hex, $hexColor->getHexStr(false));
+    }
+
+    /**
+     * @covers       \Renfordt\Colors\HSVColor::getHSV
+     */
+    #[DataProvider('provideHSVData')]
+    public function testGetHSV(array $hsv, array $rgb, string $hex): void
+    {
+        $hsvColor = HSVColor::create($hsv);
+        $retrievedHSV = $hsvColor->getHSV();
+
+        $this->assertIsArray($retrievedHSV);
+        $this->assertEquals($hsv[0], $retrievedHSV[0]);
+        $this->assertEquals($hsv[1], $retrievedHSV[1]);
+        $this->assertEquals($hsv[2], $retrievedHSV[2]);
     }
 }

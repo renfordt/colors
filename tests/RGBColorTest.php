@@ -2,12 +2,19 @@
 
 declare(strict_types=1);
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
-
+use Renfordt\Colors\HexColor;
+use Renfordt\Colors\HSLColor;
 use Renfordt\Colors\HSVColor;
 use Renfordt\Colors\RGBColor;
 
+#[CoversClass(RGBColor::class)]
+#[UsesClass(HSVColor::class)]
+#[UsesClass(HexColor::class)]
+#[UsesClass(HSLColor::class)]
 class RGBColorTest extends TestCase
 {
     public static function makeProvider(): array
@@ -77,7 +84,7 @@ class RGBColorTest extends TestCase
      * @covers \Renfordt\Colors\RGBColor::create
      */
     #[DataProvider('makeProvider')]
-    public function testCreate($rgb, $expected): void
+    public function testCreate(array $rgb, string $expected): void
     {
         $result = RGBColor::create($rgb);
         $this->assertNotEmpty($result->toHex()->getHexStr(false));
@@ -85,7 +92,7 @@ class RGBColorTest extends TestCase
     }
 
     #[DataProvider('makeProvider')]
-    public function testMake($rgb, $expected): void
+    public function testMake(array $rgb, string $expected): void
     {
         $result = RGBColor::make($rgb);
         $this->assertNotEmpty($result->toHex()->getHexStr(false));
@@ -97,7 +104,7 @@ class RGBColorTest extends TestCase
      * @covers \Renfordt\Colors\RGBColor::getRGB
      */
     #[DataProvider('toHexProvider')]
-    public function testGetRGB($rgb, $expected): void
+    public function testGetRGB(array $rgb, string $expected): void
     {
         $result = RGBColor::create($rgb);
         $this->assertNotEmpty($result->getRGB());
@@ -109,7 +116,7 @@ class RGBColorTest extends TestCase
      * @covers \Renfordt\Colors\RGBColor::toHex
      */
     #[DataProvider('toHexProvider')]
-    public function testToHex($rgb, $expected): void
+    public function testToHex(array $rgb, string $expected): void
     {
         $result = RGBColor::create($rgb);
         $this->assertIsString($result->toHex()->getHexStr(false));
@@ -121,18 +128,31 @@ class RGBColorTest extends TestCase
      * @covers \Renfordt\Colors\RGBColor::toHSL
      */
     #[DataProvider('toHSLProvider')]
-    public function testToHSL($rgb, $expected): void
+    public function testToHSL(array $rgb, array $expected): void
     {
         $result = RGBColor::create($rgb);
         $this->assertIsArray($result->toHSL()->getHSL());
         $this->assertEquals($expected, $result->toHSL()->getHSL());
     }
+
+    /**
+     * Test the toArray method of the RGBColor class.
+     * @covers \Renfordt\Colors\RGBColor::toArray
+     */
+    #[DataProvider('toHexProvider')]
+    public function testToArray(array $rgb, string $expected): void
+    {
+        $result = RGBColor::create($rgb);
+        $this->assertIsArray($result->toArray());
+        $this->assertEquals($rgb, $result->toArray());
+    }
+
     /**
      * Test the toHSV method of the RGBColor class.
      * @covers \Renfordt\Colors\RGBColor::toHSV
     */
     #[DataProvider('toHSVProvider')]
-    public function testToHSV($rgb, $expected): void
+    public function testToHSV(array $rgb, array $expected): void
     {
         $result = RGBColor::create($rgb);
         $this->assertInstanceOf(HSVColor::class, $result->toHSV());

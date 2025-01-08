@@ -1,11 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Renfordt\Colors\HexColor;
 use Renfordt\Colors\HSLColor;
 use Renfordt\Colors\RGBColor;
 
+#[CoversClass(HSLColor::class)]
+#[UsesClass(RGBColor::class)]
+#[UsesClass(HexColor::class)]
 class HSLColorTest extends TestCase
 {
     public static function provideHSLData(): array
@@ -36,7 +43,7 @@ class HSLColorTest extends TestCase
      * @covers       \Renfordt\Colors\HSLColor::create
      */
     #[DataProvider('provideHSLData')]
-    public function testCreate($hsl, $rgb, $hex): void
+    public function testCreate(array $hsl, array $rgb, string $hex): void
     {
         list($hue, $saturation, $lightness) = $hsl;
         $hslColor = HSLColor::create($hsl);
@@ -48,7 +55,7 @@ class HSLColorTest extends TestCase
     }
 
     #[DataProvider('provideHSLData')]
-    public function testMake($hsl, $rgb, $hex): void
+    public function testMake(array $hsl, array $rgb, string $hex): void
     {
         list($hue, $saturation, $lightness) = $hsl;
         $hslColor = HSLColor::make($hsl);
@@ -65,7 +72,7 @@ class HSLColorTest extends TestCase
      * @covers       \Renfordt\Colors\HSLColor::create
      */
     #[DataProvider('provideInvalidHSLData')]
-    public function testCreate_with_invalid_inputs($hsl, $expected): void
+    public function testCreate_with_invalid_inputs(array $hsl, array $expected): void
     {
         list($hue, $saturation, $lightness) = $expected;
         $hslColor = HSLColor::create($hsl);
@@ -80,7 +87,7 @@ class HSLColorTest extends TestCase
      * @covers       \Renfordt\Colors\HSLColor::toRGB
      */
     #[DataProvider('provideHSLData')]
-    public function testToRGB($hsl, $expectedRgb, $hex): void
+    public function testToRGB(array $hsl, array $expectedRgb, string $hex): void
     {
         list($hue, $saturation, $lightness) = $hsl;
         $hslColor = HSLColor::create($hsl);
@@ -125,7 +132,7 @@ class HSLColorTest extends TestCase
      * @covers       \Renfordt\Colors\HSLColor::getHSL
      */
     #[DataProvider('provideHSLData')]
-    public function testGetHSL($hsl, $rgb, $hex): void
+    public function testGetHSL(array $hsl, array $rgb, string $hex): void
     {
         list($hue, $saturation, $lightness) = $hsl;
         $hslColor = HSLColor::create($hsl);
@@ -139,7 +146,7 @@ class HSLColorTest extends TestCase
      * @covers       \Renfordt\Colors\HSLColor::toHex
      */
     #[DataProvider('provideHSLData')]
-    public function testToHex($hsl, $rgb, $expectedHex): void
+    public function testToHex(array $hsl, array $rgb, string $expectedHex): void
     {
         $hslColor = HSLColor::create($hsl);
         $hexColor = $hslColor->toHex();
