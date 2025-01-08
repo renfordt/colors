@@ -4,7 +4,7 @@
 [![Packagist Version](https://img.shields.io/packagist/v/renfordt/colors)](https://packagist.org/packages/renfordt/colors/)
 ![Packagist PHP Version](https://img.shields.io/packagist/dependency-v/renfordt/colors/php)
 ![GitHub License](https://img.shields.io/github/license/renfordt/colors)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/renfordt/colors/php.yml?logo=github)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/renfordt/colors/tests.yml?logo=github)
 [![Code Climate coverage](https://img.shields.io/codeclimate/coverage/renfordt/colors?logo=codeclimate)](https://codeclimate.com/github/renfordt/colors/test_coverage)
 [![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/renfordt/colors?logo=codeclimate)](https://codeclimate.com/github/renfordt/colors/maintainability)
 
