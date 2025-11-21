@@ -36,7 +36,7 @@ class HSLColor
      */
     public static function create(array $hsl): HSLColor
     {
-        list($hue, $saturation, $lightness) = $hsl;
+        [$hue, $saturation, $lightness] = $hsl;
         $hslColor = new HSLColor();
         $hslColor->setHue($hue);
         $hslColor->setSaturation($saturation);
@@ -156,7 +156,7 @@ class HSLColor
         $hMod2 = $hueNormalized - 2 * floor($hueNormalized / 2);
         $intermediateValue = $chroma * (1 - abs($hMod2 - 1));
 
-        list($red, $green, $blue) = self::calculateRGBRange($hueNormalized, $chroma, $intermediateValue);
+        [$red, $green, $blue] = self::calculateRGBRange($hueNormalized, $chroma, $intermediateValue);
 
         return self::finalizeRGBCalculation($red, $green, $blue, $this->lightness, $chroma, true);
     }

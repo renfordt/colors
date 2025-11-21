@@ -334,9 +334,9 @@ class RALColor
      */
     private function getColorDistance(HexColor $hex1, string $hex2): float
     {
-        list($r1, $g1, $b1) = $hex1->toRGB()->toArray();
-        list($r2, $g2, $b2) = HexColor::create($hex2)->toRGB()->toArray();
+        [$r1, $g1, $b1] = $hex1->toRGB()->toArray();
+        [$r2, $g2, $b2] = HexColor::create($hex2)->toRGB()->toArray();
 
-        return sqrt(pow($r2 - $r1, 2) + pow($g2 - $g1, 2) + pow($b2 - $b1, 2));
+        return sqrt(($r2 - $r1) ** 2 + ($g2 - $g1) ** 2 + ($b2 - $b1) ** 2);
     }
 }

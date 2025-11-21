@@ -46,7 +46,7 @@ class RGBColor
      */
     public function setRGB(array $rgb): void
     {
-        list($red, $green, $blue) = $rgb;
+        [$red, $green, $blue] = $rgb;
         $this->red = (int)clamp($red, 0, 255);
         $this->green = (int)clamp($green, 0, 255);
         $this->blue = (int)clamp($blue, 0, 255);
@@ -59,7 +59,7 @@ class RGBColor
      */
     public function getRGB(): array
     {
-        return array($this->red, $this->green, $this->blue);
+        return [$this->red, $this->green, $this->blue];
     }
 
     /**
@@ -70,7 +70,7 @@ class RGBColor
      */
     public function toHSL(int $precision = 4): HSLColor
     {
-        list($maxRGB, $minRGB, $chroma, $value, $hue) = $this->calculateCVH();
+        [$maxRGB, $minRGB, $chroma, $value, $hue] = $this->calculateCVH();
 
         if ($chroma == 0) {
             return HSLColor::create([0, 0, $value]);
@@ -115,7 +115,7 @@ class RGBColor
         if ($hue < 0) {
             $hue += 360;
         }
-        return array($maxRGB, $minRGB, $chroma, $value, $hue);
+        return [$maxRGB, $minRGB, $chroma, $value, $hue];
     }
 
     /**
@@ -126,7 +126,7 @@ class RGBColor
      */
     public function toHSV(int $precision = 4): HSVColor
     {
-        list($maxRGB, $minRGB, $chroma, $value, $hue) = $this->calculateCVH();
+        [$maxRGB, $minRGB, $chroma, $value, $hue] = $this->calculateCVH();
 
         if ($chroma == 0) {
             return HSVColor::create([0, 0, $value]);

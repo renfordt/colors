@@ -39,7 +39,7 @@ class HSVColor
      */
     public static function create(array $hsv): HSVColor
     {
-        list($hue, $saturation, $value) = $hsv;
+        [$hue, $saturation, $value] = $hsv;
         $hsvColor = new HSVColor();
         $hsvColor->setHue($hue);
         $hsvColor->setSaturation($saturation);
@@ -73,7 +73,7 @@ class HSVColor
         $hMod2 = $hueNormalized - 2 * floor($hueNormalized / 2);
         $secondMax = $chroma * (1 - abs($hMod2 - 1));
 
-        list($red, $green, $blue) = self::calculateRGBRange($hueNormalized, $chroma, $secondMax);
+        [$red, $green, $blue] = self::calculateRGBRange($hueNormalized, $chroma, $secondMax);
 
         return self::finalizeRGBCalculation($red, $green, $blue, $this->value, $chroma);
     }

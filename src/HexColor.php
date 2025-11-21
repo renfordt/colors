@@ -6,7 +6,7 @@ namespace Renfordt\Colors;
 
 use InvalidArgumentException;
 
-class HexColor
+class HexColor implements \Stringable
 {
     /**
      * @var string $hexStr The hexadecimal string representation
@@ -103,17 +103,17 @@ class HexColor
         if ($length === 6) {
             $colorVal = hexdec($this->hexStr);
 
-            $color = array(
+            $color = [
                 0xFF & ($colorVal >> 0x10),
                 0xFF & ($colorVal >> 0x8),
                 0xFF & $colorVal
-            );
+            ];
         } else {
-            $color = array(
+            $color = [
                 (int)hexdec(str_repeat(substr($this->hexStr, 0, 1), 2)),
                 (int)hexdec(str_repeat(substr($this->hexStr, 1, 1), 2)),
                 (int)hexdec(str_repeat(substr($this->hexStr, 2, 1), 2))
-            );
+            ];
         }
 
         return RGBColor::create($color);

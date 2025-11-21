@@ -45,7 +45,7 @@ class HSLColorTest extends TestCase
     #[DataProvider('provideHSLData')]
     public function testCreate(array $hsl, array $rgb, string $hex): void
     {
-        list($hue, $saturation, $lightness) = $hsl;
+        [$hue, $saturation, $lightness] = $hsl;
         $hslColor = HSLColor::create($hsl);
 
         $this->assertInstanceOf(HSLColor::class, $hslColor);
@@ -57,7 +57,7 @@ class HSLColorTest extends TestCase
     #[DataProvider('provideHSLData')]
     public function testMake(array $hsl, array $rgb, string $hex): void
     {
-        list($hue, $saturation, $lightness) = $hsl;
+        [$hue, $saturation, $lightness] = $hsl;
         $hslColor = HSLColor::make($hsl);
 
         $this->assertInstanceOf(HSLColor::class, $hslColor);
@@ -74,7 +74,7 @@ class HSLColorTest extends TestCase
     #[DataProvider('provideInvalidHSLData')]
     public function testCreate_with_invalid_inputs(array $hsl, array $expected): void
     {
-        list($hue, $saturation, $lightness) = $expected;
+        [$hue, $saturation, $lightness] = $expected;
         $hslColor = HSLColor::create($hsl);
 
         $this->assertInstanceOf(HSLColor::class, $hslColor);
@@ -89,7 +89,7 @@ class HSLColorTest extends TestCase
     #[DataProvider('provideHSLData')]
     public function testToRGB(array $hsl, array $expectedRgb, string $hex): void
     {
-        list($hue, $saturation, $lightness) = $hsl;
+        [$hue, $saturation, $lightness] = $hsl;
         $hslColor = HSLColor::create($hsl);
         $rgbColor = $hslColor->toRGB();
 
@@ -103,7 +103,7 @@ class HSLColorTest extends TestCase
     #[DataProvider('provideHSLData')]
     public function testBrighten(array $hsl): void
     {
-        list($hue, $saturation, $lightness) = $hsl;
+        [$hue, $saturation, $lightness] = $hsl;
         $hslColor = HSLColor::create($hsl);
 
         $hslColor->brighten(30);
@@ -119,7 +119,7 @@ class HSLColorTest extends TestCase
     #[DataProvider('provideHSLData')]
     public function testDarken(array $hsl): void
     {
-        list($hue, $saturation, $lightness) = $hsl;
+        [$hue, $saturation, $lightness] = $hsl;
         $hslColor = HSLColor::create($hsl);
 
         $hslColor->darken(30);
@@ -134,7 +134,7 @@ class HSLColorTest extends TestCase
     #[DataProvider('provideHSLData')]
     public function testGetHSL(array $hsl, array $rgb, string $hex): void
     {
-        list($hue, $saturation, $lightness) = $hsl;
+        [$hue, $saturation, $lightness] = $hsl;
         $hslColor = HSLColor::create($hsl);
         $result = $hslColor->getHSL();
         $this->assertIsArray($result);
