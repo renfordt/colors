@@ -6,12 +6,38 @@ namespace Renfordt\Colors;
 
 class RGBColor
 {
-    /** @var int $red The red component of the RGB color (0-255) */
-    private int $red;
-    /** @var int $green The green component of the RGB color (0-255) */
-    private int $green;
-    /** @var int $blue The blue component of the RGB color (0-255) */
-    private int $blue;
+    /**
+     * The red component of the RGB color (0-255)
+     * Automatically clamped to valid range on assignment
+     */
+    public int $red {
+        get => $this->red;
+        set {
+            $this->red = (int)clamp($value, 0, 255);
+        }
+    }
+
+    /**
+     * The green component of the RGB color (0-255)
+     * Automatically clamped to valid range on assignment
+     */
+    public int $green {
+        get => $this->green;
+        set {
+            $this->green = (int)clamp($value, 0, 255);
+        }
+    }
+
+    /**
+     * The blue component of the RGB color (0-255)
+     * Automatically clamped to valid range on assignment
+     */
+    public int $blue {
+        get => $this->blue;
+        set {
+            $this->blue = (int)clamp($value, 0, 255);
+        }
+    }
 
     /**
      * Creates an RGBColor instance from an array of RGB values.
@@ -32,24 +58,12 @@ class RGBColor
      */
     public static function create(array $rgb): RGBColor
     {
-        $rgbColor = new RGBColor();
-        $rgbColor->setRGB($rgb);
-        return $rgbColor;
-    }
-
-    /**
-     * Sets the RGB color values.
-     *
-     * @param array{0:int, 1:int, 2:int} $rgb An array containing the RGB color values.
-     *      The array should have three elements, representing the red, green, and blue values, respectively.
-     *      Each value should be an integer between 0 and 255.
-     */
-    public function setRGB(array $rgb): void
-    {
         [$red, $green, $blue] = $rgb;
-        $this->red = (int)clamp($red, 0, 255);
-        $this->green = (int)clamp($green, 0, 255);
-        $this->blue = (int)clamp($blue, 0, 255);
+        $rgbColor = new RGBColor();
+        $rgbColor->red = $red;
+        $rgbColor->green = $green;
+        $rgbColor->blue = $blue;
+        return $rgbColor;
     }
 
     /**
@@ -153,13 +167,4 @@ class RGBColor
         return HexColor::create($hexRed . $hexGreen . $hexBlue);
     }
 
-    /**
-     * Convert the color to an array representation.
-     *
-     * @return array<int> An associative array containing the RGB values of the color.
-     */
-    public function toArray(): array
-    {
-        return $this->getRGB();
-    }
 }

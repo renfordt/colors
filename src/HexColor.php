@@ -9,7 +9,23 @@ use InvalidArgumentException;
 class HexColor implements \Stringable
 {
     /**
-     * @var string $hexStr The hexadecimal string representation
+     * The hexadecimal color value (returns with # prefix)
+     * Automatically validated on assignment
+     * @throws InvalidArgumentException if the format is invalid
+     */
+    public string $hex {
+        get => '#' . $this->hexStr;
+        set {
+            $value = $this->removeHash($value);
+            if (!$this->isValidHex($value)) {
+                throw new InvalidArgumentException('The format of the hex is invalid.');
+            }
+            $this->hexStr = $value;
+        }
+    }
+
+    /**
+     * @var string $hexStr The hexadecimal string representation (without #)
      */
     private string $hexStr;
 
@@ -27,14 +43,14 @@ class HexColor implements \Stringable
     /**
      * Creates a new instance of the HexColor class with the specified hexadecimal string.
      *
-     * @param string $hexStr The hexadecimal string representing the color. It must be a valid hexadecimal color code without the '#'.
+     * @param string $hexStr The hexadecimal string representing the color. Can include '#' prefix.
      *
      * @return HexColor The newly created instance of the HexColor class with the specified hexadecimal string.
      */
     public static function create(string $hexStr): HexColor
     {
         $hexColor = new HexColor();
-        $hexColor->setHexStr($hexStr);
+        $hexColor->hex = $hexStr;
         return $hexColor;
     }
 
@@ -43,6 +59,7 @@ class HexColor implements \Stringable
      *
      * @return string The string representation of the object.
      */
+    #[\Override]
     public function __toString(): string
     {
         return $this->getHexStr();
@@ -59,23 +76,6 @@ class HexColor implements \Stringable
     public function getHexStr(bool $withHash = true): string
     {
         return $withHash ? '#' . $this->hexStr : $this->hexStr;
-    }
-
-    /**
-     * Sets the hexadecimal string representation of the value.
-     *
-     * @param string $hexStr The hexadecimal string to set.
-     *
-     * @throws InvalidArgumentException if the format of the hex is invalid.
-     *
-     */
-    public function setHexStr(string $hexStr): void
-    {
-        $hexStr = $this->removeHash($hexStr);
-        if (!$this->isValidHex($hexStr)) {
-            throw new InvalidArgumentException('The format of the hex is invalid.');
-        }
-        $this->hexStr = $hexStr;
     }
 
     /**

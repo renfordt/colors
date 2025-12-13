@@ -136,18 +136,6 @@ class RGBColorTest extends TestCase
     }
 
     /**
-     * Test the toArray method of the RGBColor class.
-     * @covers \Renfordt\Colors\RGBColor::toArray
-     */
-    #[DataProvider('toHexProvider')]
-    public function testToArray(array $rgb, string $expected): void
-    {
-        $result = RGBColor::create($rgb);
-        $this->assertIsArray($result->toArray());
-        $this->assertEquals($rgb, $result->toArray());
-    }
-
-    /**
      * Test the toHSV method of the RGBColor class.
      * @covers \Renfordt\Colors\RGBColor::toHSV
     */

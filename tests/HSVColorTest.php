@@ -39,9 +39,9 @@ class HSVColorTest extends TestCase
         $hsvColor = HSVColor::create($hsv);
 
         $this->assertInstanceOf(HSVColor::class, $hsvColor);
-        $this->assertEquals($hue, $hsvColor->getHue());
-        $this->assertEquals($saturation, $hsvColor->getSaturation());
-        $this->assertEquals($value, $hsvColor->getValue());
+        $this->assertEquals($hue, $hsvColor->hue);
+        $this->assertEquals($saturation, $hsvColor->saturation);
+        $this->assertEquals($value, $hsvColor->value);
     }
 
     #[DataProvider('provideHSVData')]
@@ -51,9 +51,9 @@ class HSVColorTest extends TestCase
         $hsvColor = HSVColor::make($hsv);
 
         $this->assertInstanceOf(HSVColor::class, $hsvColor);
-        $this->assertEquals($hue, $hsvColor->getHue());
-        $this->assertEquals($saturation, $hsvColor->getSaturation());
-        $this->assertEquals($value, $hsvColor->getValue());
+        $this->assertEquals($hue, $hsvColor->hue);
+        $this->assertEquals($saturation, $hsvColor->saturation);
+        $this->assertEquals($value, $hsvColor->value);
     }
 
     /**

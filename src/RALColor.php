@@ -227,6 +227,21 @@ class RALColor
         9022 => '#818382',
         9023 => '#767779',
     ];
+
+    /**
+     * The RAL color code
+     * No validation applied - assumes valid RAL code
+     */
+    public int $ral {
+        get => $this->RALStr;
+        set {
+            $this->RALStr = $value;
+        }
+    }
+
+    /**
+     * @var int $RALStr Internal storage for RAL code (used by lookup table)
+     */
     private int $RALStr;
 
     /**
@@ -249,18 +264,8 @@ class RALColor
     public static function create(string|int $RALStr): RALColor
     {
         $RALColor = new RALColor();
-        $RALColor->setRAL((int)$RALStr);
+        $RALColor->ral = (int)$RALStr;
         return $RALColor;
-    }
-
-    /**
-     * Sets the RAL string representing the color for the current instance.
-     *
-     * @param int $RALStr The RAL string representing the color to be set.
-     */
-    public function setRAL(int $RALStr): void
-    {
-        $this->RALStr = $RALStr;
     }
 
     /**
@@ -311,18 +316,17 @@ class RALColor
      */
     public function findClosestColor(HexColor $target): ?RALColor
     {
-        $minDist = INF;
-        $closestColor = null;
+        /** @var array{distance: float, color: RALColor|null} $result */
+        $result = array_reduce(
+            array_keys($this->lookup_table),
+            fn (array $acc, int $key): array =>
+                ($dist = $this->getColorDistance($target, $this->lookup_table[$key])) < $acc['distance']
+                    ? ['distance' => $dist, 'color' => RALColor::create($key)]
+                    : $acc,
+            ['distance' => INF, 'color' => null]
+        );
 
-        foreach ($this->lookup_table as $key => $color) {
-            $dist = $this->getColorDistance($target, $color);
-            if ($dist < $minDist) {
-                $minDist = $dist;
-                $closestColor = RALColor::create($key);
-            }
-        }
-
-        return $closestColor;
+        return $result['color'];
     }
 
     /**
@@ -334,8 +338,8 @@ class RALColor
      */
     private function getColorDistance(HexColor $hex1, string $hex2): float
     {
-        [$r1, $g1, $b1] = $hex1->toRGB()->toArray();
-        [$r2, $g2, $b2] = HexColor::create($hex2)->toRGB()->toArray();
+        [$r1, $g1, $b1] = $hex1->toRGB()->getRGB();
+        [$r2, $g2, $b2] = HexColor::create($hex2)->toRGB()->getRGB();
 
         return sqrt(($r2 - $r1) ** 2 + ($g2 - $g1) ** 2 + ($b2 - $b1) ** 2);
     }

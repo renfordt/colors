@@ -18,24 +18,14 @@ trait HueBasedTrait
      */
     private static function calculateRGBRange(float $hueNormalized, float $chroma, float $secondMax): array
     {
-        $array = [0.0, 0.0, 0.0];
-        $rgbMap = [
-            [[$chroma, $secondMax, 0.0], 1],
-            [[$secondMax, $chroma, 0.0], 2],
-            [[0.0, $chroma, $secondMax], 3],
-            [[0.0, $secondMax, $chroma], 4],
-            [[$secondMax, 0.0, $chroma], 5],
-            [[$chroma, 0.0, $secondMax], 6],
-        ];
-
-        foreach ($rgbMap as $rgb) {
-            if ($hueNormalized < $rgb[1]) {
-                $array = $rgb[0];
-                break;
-            }
-        }
-
-        return $array;
+        return match (true) {
+            $hueNormalized < 1 => [$chroma, $secondMax, 0.0],
+            $hueNormalized < 2 => [$secondMax, $chroma, 0.0],
+            $hueNormalized < 3 => [0.0, $chroma, $secondMax],
+            $hueNormalized < 4 => [0.0, $secondMax, $chroma],
+            $hueNormalized < 5 => [$secondMax, 0.0, $chroma],
+            default => [$chroma, 0.0, $secondMax],
+        };
     }
 
     /**

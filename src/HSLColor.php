@@ -10,12 +10,38 @@ class HSLColor
 {
     use HueBasedTrait;
 
-    /** @var int $hue The hue component of the HSL color (0-359) */
-    private int $hue;
-    /** @var float $saturation The saturation component of the HSL color (0.0-1.0) */
-    private float $saturation;
-    /** @var float $lightness The lightness component of the HSL color (0.0-1.0) */
-    private float $lightness;
+    /**
+     * The hue component of the HSL color (0-360)
+     * Automatically clamped to valid range on assignment
+     */
+    public int $hue {
+        get => $this->hue;
+        set {
+            $this->hue = (int)clamp($value, 0, 360);
+        }
+    }
+
+    /**
+     * The saturation component of the HSL color (0.0-1.0)
+     * Automatically clamped to valid range on assignment
+     */
+    public float $saturation {
+        get => $this->saturation;
+        set {
+            $this->saturation = (float)clamp($value, 0.0, 1.0);
+        }
+    }
+
+    /**
+     * The lightness component of the HSL color (0.0-1.0)
+     * Automatically clamped to valid range on assignment
+     */
+    public float $lightness {
+        get => $this->lightness;
+        set {
+            $this->lightness = (float)clamp($value, 0.0, 1.0);
+        }
+    }
 
     /**
      * Creates a new HSLColor object from an array of HSL values.
@@ -38,70 +64,10 @@ class HSLColor
     {
         [$hue, $saturation, $lightness] = $hsl;
         $hslColor = new HSLColor();
-        $hslColor->setHue($hue);
-        $hslColor->setSaturation($saturation);
-        $hslColor->setLightness($lightness);
+        $hslColor->hue = $hue;
+        $hslColor->saturation = $saturation;
+        $hslColor->lightness = $lightness;
         return $hslColor;
-    }
-
-    /**
-     * Get the hue value of the color.
-     *
-     * @return int The hue value of the color.
-     */
-    public function getHue(): int
-    {
-        return $this->hue;
-    }
-
-    /**
-     * Set the hue value of the color.
-     *
-     * @param int $hue The hue value to be set (0-360).
-     */
-    public function setHue(int $hue): void
-    {
-        $this->hue = (int)clamp($hue, 0, 360);
-    }
-
-    /**
-     * Get the saturation value of the color.
-     *
-     * @return float The saturation value of the color.
-     */
-    public function getSaturation(): float
-    {
-        return $this->saturation;
-    }
-
-    /**
-     * Set the saturation value of the color.
-     *
-     * @param float $saturation The saturation value to be set (0.0-1.0).
-     */
-    public function setSaturation(float $saturation): void
-    {
-        $this->saturation = (float)clamp($saturation, 0.0, 1.0);
-    }
-
-    /**
-     * Get the lightness value of the color.
-     *
-     * @return float The lightness value of the color.
-     */
-    public function getLightness(): float
-    {
-        return $this->lightness;
-    }
-
-    /**
-     * Set the lightness value of the color.
-     *
-     * @param float $lightness The new lightness value for the color (0.0-1.0).
-     */
-    public function setLightness(float $lightness): void
-    {
-        $this->lightness = (float)clamp($lightness, 0.0, 1.0);
     }
 
     /**
@@ -121,7 +87,7 @@ class HSLColor
      */
     public function brighten(int $amount = 10): void
     {
-        $this->setLightness($this->lightness + $amount / 100);
+        $this->lightness += $amount / 100;
     }
 
     /**
@@ -131,7 +97,7 @@ class HSLColor
      */
     public function darken(int $amount = 10): void
     {
-        $this->setLightness($this->lightness - $amount / 100);
+        $this->lightness -= $amount / 100;
     }
 
     /**

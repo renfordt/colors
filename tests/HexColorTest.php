@@ -43,7 +43,7 @@ class HexColorTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The format of the hex is invalid.');
         $color = new HexColor();
-        $color->setHexStr('invalid_hex');
+        $color->hex = 'invalid_hex';
     }
 
     public static function hexToHSLProvider(): array
@@ -73,10 +73,10 @@ class HexColorTest extends TestCase
     public function test_valid_hex_string(): void
     {
         $color = new HexColor();
-        $color->setHexStr('#123abc');
+        $color->hex = '#123abc';
         $this->assertSame('123abc', $color->getHexStr(false));
 
-        $color->setHexStr('#abc');
+        $color->hex = '#abc';
         $this->assertSame('abc', $color->getHexStr(false));
     }
 
@@ -133,7 +133,7 @@ class HexColorTest extends TestCase
     public function test_toRGB(string $hex, array $expected): void
     {
         $color = new HexColor();
-        $color->setHexStr($hex);
+        $color->hex = $hex;
         $this->assertSame($expected, $color->toRGB()->getRGB());
 
     }
@@ -141,7 +141,7 @@ class HexColorTest extends TestCase
     public function test_withHash_returns_hashed_hex_string(): void
     {
         $color = new HexColor();
-        $color->setHexStr('#fff');
+        $color->hex = '#fff';
         $this->assertSame('#fff', $color->getHexStr(true));
     }
 
@@ -150,7 +150,7 @@ class HexColorTest extends TestCase
         $color = new HexColor();
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The format of the hex is invalid.');
-        $color->setHexStr('ghijk');
+        $color->hex = 'ghijk';
         $color->toRGB();
     }
 
@@ -159,7 +159,7 @@ class HexColorTest extends TestCase
         $color = new HexColor();
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The format of the hex is invalid.');
-        $color->setHexStr('abcd');
+        $color->hex = 'abcd';
         $color->toRGB();
     }
 

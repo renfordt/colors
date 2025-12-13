@@ -10,12 +10,38 @@ class HSVColor
 {
     use HueBasedTrait;
 
-    /** @var int $hue The hue component of the HSV color (0-360) */
-    private int $hue;
-    /** @var float $saturation The saturation component of the HSV color (0.0-1.0) */
-    private float $saturation;
-    /** @var float $value The value component of the HSV color (0.0-1.0) */
-    private float $value;
+    /**
+     * The hue component of the HSV color (0-360)
+     * Automatically clamped to valid range on assignment
+     */
+    public int $hue {
+        get => $this->hue;
+        set {
+            $this->hue = (int)clamp($value, 0, 360);
+        }
+    }
+
+    /**
+     * The saturation component of the HSV color (0.0-1.0)
+     * Automatically clamped to valid range on assignment
+     */
+    public float $saturation {
+        get => $this->saturation;
+        set {
+            $this->saturation = (float)clamp($value, 0.0, 1.0);
+        }
+    }
+
+    /**
+     * The value component of the HSV color (0.0-1.0)
+     * Automatically clamped to valid range on assignment
+     */
+    public float $value {
+        get => $this->value;
+        set {
+            $this->value = (float)clamp($value, 0.0, 1.0);
+        }
+    }
 
     /**
      * Creates an instance of HSVColor from an array of HSV values.
@@ -41,9 +67,9 @@ class HSVColor
     {
         [$hue, $saturation, $value] = $hsv;
         $hsvColor = new HSVColor();
-        $hsvColor->setHue($hue);
-        $hsvColor->setSaturation($saturation);
-        $hsvColor->setValue($value);
+        $hsvColor->hue = $hue;
+        $hsvColor->saturation = $saturation;
+        $hsvColor->value = $value;
         return $hsvColor;
     }
 
@@ -76,66 +102,6 @@ class HSVColor
         [$red, $green, $blue] = self::calculateRGBRange($hueNormalized, $chroma, $secondMax);
 
         return self::finalizeRGBCalculation($red, $green, $blue, $this->value, $chroma);
-    }
-
-    /**
-     * Returns the hue value of the color.
-     *
-     * @return int The hue value of the color.
-     */
-    public function getHue(): int
-    {
-        return $this->hue;
-    }
-
-    /**
-     * Set the hue of the object, clamped between 0 and 360 degrees.
-     *
-     * @param int $hue The hue value to set.
-     */
-    public function setHue(int $hue): void
-    {
-        $this->hue = (int)clamp($hue, 0, 360);
-    }
-
-    /**
-     * Get the saturation of the object.
-     *
-     * @return float The saturation value of the object.
-     */
-    public function getSaturation(): float
-    {
-        return $this->saturation;
-    }
-
-    /**
-     * Set the saturation of the object, clamped between 0.0 and 1.0.
-     *
-     * @param float $saturation The saturation value to set.
-     */
-    public function setSaturation(float $saturation): void
-    {
-        $this->saturation = (float)clamp($saturation, 0.0, 1.0);
-    }
-
-    /**
-     * Get the value component of the HSV color.
-     *
-     * @return float The value component of the HSV color.
-     */
-    public function getValue(): float
-    {
-        return $this->value;
-    }
-
-    /**
-     * Sets the value component of the HSV color.
-     *
-     * @param float $value The value to be assigned.
-     */
-    public function setValue(float $value): void
-    {
-        $this->value = (float)clamp($value, 0.0, 1.0);
     }
 
     /**
